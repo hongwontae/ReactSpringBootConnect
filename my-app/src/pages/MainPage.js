@@ -4,7 +4,9 @@ import BasicLayout from "../layouts/BasicLayout";
 const MainPage = () => {
   return ( 
     <BasicLayout>
-      <h2>Main Page</h2>
+      <div className="flex justify-center items-center text-2xl font-serif italic font-medium">
+      Main Page
+      </div>
     </BasicLayout>
    );
 }
