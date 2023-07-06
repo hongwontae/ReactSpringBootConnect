@@ -14,7 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
 import org.zerock.j1_1.domain.Board;
-import org.zerock.j1_1.dto.BoardListRCountDTO;
+import org.zerock.j1_1.dto.BoardListRcntDTO;
 import org.zerock.j1_1.dto.PageRequestDTO;
 import org.zerock.j1_1.dto.PageResponseDTO;
 
@@ -197,7 +197,7 @@ public class BoardRepositoryTests {
 
     PageRequestDTO pageRequest = new PageRequestDTO();
 
-    PageResponseDTO<BoardListRCountDTO> responseDTO =  boardRepository.searchDTORcnt(pageRequest);
+    PageResponseDTO<BoardListRcntDTO> responseDTO =  boardRepository.searchDTORcnt(pageRequest);
 
     log.info(responseDTO);
 

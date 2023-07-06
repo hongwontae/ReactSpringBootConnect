@@ -39,19 +39,11 @@ public class TodoServiceImpl implements TodoService {
         result.getContent().stream()
         .map(todo -> modelMapper.map(todo, TodoDTO.class))
         .collect(Collectors.toList());
-        
-        // Stream을 생략하고싶으면
-        //  List<TodoDTO> dtoList=
-        // result.get()
-        // .map(todo -> modelMapper.map(todo, TodoDTO.class))
-        // .collect(Collectors.toList());
-        
         // PageResponseDTO에 dtoList를 담을수있게 생성
         // PageResponseDTO<TodoDTO> respnose = new PageResponseDTO<>();
-        // // 담기
+        // 담기
         // respnose.setDtoList(dtoList);
-        // // Controller로 보낼값
-        // return respnose;
+        // Controller로 보낼값
         return null;
 }
 
@@ -67,8 +59,7 @@ public class TodoServiceImpl implements TodoService {
         return modelMapper.map(result, TodoDTO.class);
     }
 
-
-     @Override
+    @Override
     public TodoDTO getOne(Long tno) {
         // Optional 자바에서 중요한 역활
         Optional<Todo> reuslt = todoRepository.findById(tno);

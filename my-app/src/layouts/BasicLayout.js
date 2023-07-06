@@ -1,16 +1,20 @@
-import SampleNav from "./nav/SampleNav";
+import {Link} from 'react-router-dom'
 
-const BasicLayout = ({children}) => {
+const SampleNav = () => {
   return ( 
-    <div className="container mx-auto min-w-[1280px] bg-blue-500">
-      <div>
-        <SampleNav></SampleNav>
+    <div className='flex m-6 p-4 text-white font-extrabold '>
+      <div className='m-4 text-4xl border-2 text-black'  >
+        <Link to="/">Main</Link>
       </div>
-      <div>
-        {children}
+      <div  className='m-4 text-4xl border-2 text-black'>
+        <Link to="/about">About</Link>
       </div>
+      <div  className='m-4 text-4xl border-2 text-black'>
+        <Link to="/board/list">Board</Link>
+      </div>
+      
     </div>
   );
 }
  
-export default BasicLayout;
+export default SampleNav;

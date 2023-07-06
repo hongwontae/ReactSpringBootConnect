@@ -1,11 +1,19 @@
-import BasicLayout from "../../layouts/BasicLayout";
-
+import { useSearchParams } from "react-router-dom";
 
 const ListPage = () => {
+
+  const [search, useSearch]= useSearchParams;
+
+  console.log(search)
+
+  const page = search.get("page")
+
+  console.log(page)
+
   return ( 
-    <BasicLayout>
+    <div>
       Board List Page
-    </BasicLayout>
+    </div>
    );
 }
  

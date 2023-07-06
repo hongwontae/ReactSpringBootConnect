@@ -7,29 +7,39 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.zerock.j1_1.domain.Board;
-import org.zerock.j1_1.dto.BoardListRCountDTO;
+import org.zerock.j1_1.dto.BoardListRcntDTO;
 import org.zerock.j1_1.dto.PageRequestDTO;
 import org.zerock.j1_1.dto.PageResponseDTO;
 
+// 검색기능을위한 interface 
+// 이름 일치시켜야된다. BoardSearch --> BoardSearchImpl
 public interface BoardSearch {
-  
-  //v1
-  Page<Board> search1( String searchType, String keyword, Pageable pageable);
+    
+    
+    // List를 뽑는 메소드
+    
+    // List<Board> search1();
 
-  //v2
-  Page<Object[]> searchWithRcnt(String searchType, String keyword, Pageable pageable);
+    //Page<Board> search1 (Pageable pageable);
+    // 기본 게시판의 검색조건
+    Page<Board> search1 (String searchType, String searchKeyword, Pageable pageable);
 
-  //v3
-  PageResponseDTO<BoardListRCountDTO> searchDTORcnt(PageRequestDTO requestDTO);
+    // 기본 게시판 검색에 + 댓글
+    Page<Object[]> searchWithRcnt(String searchType, String searchKeyword, Pageable pageable);
 
-  default Pageable makePageable(PageRequestDTO requestDTO){
 
-    Pageable pageable = PageRequest.of( 
-      requestDTO.getPage() -1,
-      requestDTO.getSize(),
-      Sort.by("bno").descending()  );
+    // DTO로 받는 검색방식 method
+    PageResponseDTO<BoardListRcntDTO> searchDTORcnt(PageRequestDTO requestDTO);
 
-      return pageable;
-  }
+    // Pageable을 반환하는 것을 만들어주는 method
+    default Pageable makePageable(PageRequestDTO requestDTO){
 
+        Pageable pageable = PageRequest.of(
+            requestDTO.getPage() -1,
+            requestDTO.getSize(),
+            Sort.by("bno").descending()
+            );
+            
+            return pageable;
+    }
 }
