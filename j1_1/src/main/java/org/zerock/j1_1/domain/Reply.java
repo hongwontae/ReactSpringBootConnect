@@ -14,26 +14,25 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
-@Table(name="t_reply2")
+@Table(name="t_reply")
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @ToString(exclude = "board")
 public class Reply {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long rno;
-    
-    private String replyText;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long rno;
 
-    private String replyFile;
+  private String replyText;
 
-    private String replyer;
+  private String replyFile;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Board board;
-    // 연관관계 설정
-    // pk가 자동으로 들어간다,
+  private String replyer;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  private Board board;
+
 }

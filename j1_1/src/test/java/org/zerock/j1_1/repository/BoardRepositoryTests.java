@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -12,170 +13,195 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Commit;
-import org.springframework.transaction.annotation.Transactional;
 import org.zerock.j1_1.domain.Board;
+import org.zerock.j1_1.dto.BoardListRCountDTO;
+import org.zerock.j1_1.dto.PageRequestDTO;
+import org.zerock.j1_1.dto.PageResponseDTO;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 
 @SpringBootTest
 @Log4j2
 public class BoardRepositoryTests {
+  
+  @Autowired
+  private BoardRepository boardRepository;
 
-    // 테스트를 위한 DI
-    @Autowired
-    private BoardRepository boardRepository;
+  @Test
+  public void testInsert(){
 
-    // Insert 테스트
-    @Test
-    public void testInsert() {
-        for (int i = 0; i < 100; i++) {
-            Board board = Board.builder()
-                    .title("Sample Title" + i)
-                    .content("Sample Content" + i)
-                    .writer("user" + (i % 10))
-                    .build();
+    for(int i = 0; i < 100; i++){
 
-            boardRepository.save(board);
-        }
-    }
+      Board board = Board.builder()
+      .title("Sample Title" +i)
+      .content("Sample Content" + i)
+      .writer("user" + (i %10))
+      .build();
 
-    // Read 테스트
-    @Test
-    public void testRead() {
+      boardRepository.save(board);
 
-        Long bno = 1L;
-
-        Optional<Board> result = boardRepository.findById(bno);
-
-        log.info("--------------------------------");
-
-        Board board = result.orElseThrow();
-
-        log.info(board);
-    }
-
-    // Update 테스트
-    @Test
-    public void testUpdate() {
-        // JPA 업데이트는 Mybatis 방식과 다르다.
-        // 조회후 save를 다시하는 방법
-        // 이방식이 복잡하고 너무길다 싶을때 쓰는게
-        // Query method 방식
-        Long bno = 1L;
-
-        Optional<Board> result = boardRepository.findById(bno);
-
-        Board board = result.orElseThrow();
-        board.changeTitle("Update Title");
-
-        boardRepository.save(board);
-    }
-
-    // Query method 관련 테스트
-    @Test
-    public void testQuery1() {
-
-        java.util.List<Board> list = boardRepository.findByTitleContaining("1");
-
-        log.info("----------------------");
-        log.info(list.size());
-        log.info(list);
-    }
-
-    // JPQL 관련 테스트
-    @Test
-    public void testQuery1_1() {
-
-        java.util.List<Board> list = boardRepository.listTitle("1");
-
-        log.info("----------------------");
-        log.info(list.size());
-        log.info(list);
-    }
-
-    // JPQL 실제 사용이유의 방식의 테스트
-    @Test
-    public void testQuery1_2() {
-
-        java.util.List<Object[]> list = boardRepository.listTitle2("1");
-
-        log.info("----------------------");
-        log.info(list.size());
-        list.forEach(arr -> log.info(Arrays.toString(arr)));
-    }
-
-    // Page 처리 JPQL
-    @Test
-    public void testQuery1_3() {
-        Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
-
-        Page<Object[]> result = boardRepository.listTitle3("1", pageable);
-
-        log.info(result);
-
-    }
-    // JPQL Modify Test
-    @Commit
-    @Transactional
-    @Test
-    public void testModify(){
-        Long bno = 100L;
-        String title = "Modified Title 100";
-        int count = boardRepository.modifyTitle(title, bno);
-
-        log.info("-----------------" + count);
 
     }
 
-    // 검색하면서 Paging 처리가 되는방법
+
+  }
+
+
+  @Test
+  public void testRead() {
+
+    Long bno = 1L;
+
+    Optional<Board> result = boardRepository.findById(1L);
+
+
+    log.info("-----------------------------");
+
+    Board board = result.orElseThrow();
+
+    log.info(board.getTitle());
+
+  }
+
+  @Test
+  public void testUpdate() {
+    Long bno = 1L;
+
+    Optional<Board> result = boardRepository.findById(1L);
+
+    Board board = result.orElseThrow();
+
+    board.changeTitle("Update Title");
+
+    boardRepository.save(board);
+
+  }
+
+  @Test
+  public void testQuery1() {
+
+    java.util.List<Board> list = boardRepository.findByTitleContaining("1");
+
+    log.info("-----------------");
+    log.info(list.size());
+    log.info(list);
+
+  }
+
     @Test
-    public void testQuery2() {
+  public void testQuery1_1() {
 
-        Pageable pageable = PageRequest.of(
-                0, 10, Sort.by("bno").descending());
+    java.util.List<Board> list = boardRepository.listTitle("1");
 
-        Page<Board> result = boardRepository.findByContentContaining("1", pageable);
+    log.info("-----------------");
+    log.info(list.size());
+    log.info(list);
 
-        log.info("------------------------");
-        log.info(result);
-    }
+  }
 
-    @Test
-    public void testNative(){
+  @Test
+  public void testQuery1_2() {
 
-        List<Object[]> result = boardRepository.listNative();
-        
-        result.forEach(arr -> log.info(Arrays.toString(arr)));
-        
-    }
+    java.util.List<Object[]> list = boardRepository.listTitle2("1");
 
-    // QBoard를 써서 만든테스트
-    @Test
-    public void testSearch1(){
+    log.info("-----------------");
+    log.info(list.size());
+    
+    list.forEach(arr -> log.info(Arrays.toString(arr)));
 
-       Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
-       Page<Board> result = boardRepository.search1("tcw","1", pageable);
-       log.info(result.getTotalElements());
-
-       result.get().forEach(b -> log.info(b));
-    }
+  }
 
     @Test
-    public void testListWithRcnt(){
+  public void testQuery1_3() {
 
-        List<Object[]> result = boardRepository.getListWithRcnt();
+    Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
 
-        for (Object[] result2 : result){
-            log.info(Arrays.toString(result2));
-        }
-    }
+    Page<Object[]> result = boardRepository.listTitle3("1",pageable);
+
+    log.info(result);
+
+  }
+
+  @Commit
+  @Transactional
+  @Test
+  public void testModify() {
+
+    Long bno = 100L;
+    String title ="Modified Title 100";
+
+    int count = boardRepository.modifyTitle(title, bno);
+
+    log.info("----------------" + count);
+  }
+
+  @Test
+  public void testNative(){
+
+    List<Object[]> result = boardRepository.listNative();
+
+    result.forEach(arr -> log.info(Arrays.toString(arr)));
+
+  }
 
     @Test
-    public void testListWithRcntSearch(){
+  public void testQuery2() {
 
-         Pageable pageable = PageRequest.of(0, 10, Sort.by("bno").descending());
+    Pageable pageable = PageRequest.of(
+      0,10, 
+      Sort.by("bno").descending() );
 
-         boardRepository.searchWithRcnt("tcw", "1", pageable);
+    Page<Board> result = boardRepository.findByContentContaining("1", pageable);
+
+    log.info("-----------------");
+    log.info(result);
+
+  }
+
+  @Test
+  public void testSearch1(){
+
+    Pageable pageable = PageRequest.of(0,10, 
+        Sort.by("bno").descending());
+
+    Page<Board> result = boardRepository.search1("tw","1",pageable);
+
+    log.info(result.getTotalElements());
+
+    result.get().forEach(b -> log.info(b));
+  }
+
+  @Test
+  public void testListWithRcnt() {
+
+    List<Object[]> result = boardRepository.getListWithRcnt();
+
+    for (Object[] result2 : result) {
+      log.info(Arrays.toString(result2));
     }
+  }
+
+  @Test
+  public void testListWithRcntSearch(){
+
+    Pageable pageable = PageRequest.of(0,10, 
+      Sort.by("bno").descending());
+
+    boardRepository.searchWithRcnt("tcw", "1", pageable);
+
+  }
+
+  @Test
+  public void test0706_1() {
+
+    PageRequestDTO pageRequest = new PageRequestDTO();
+
+    PageResponseDTO<BoardListRCountDTO> responseDTO =  boardRepository.searchDTORcnt(pageRequest);
+
+    log.info(responseDTO);
+
+
+  }
 
 }
