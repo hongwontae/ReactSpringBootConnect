@@ -2,13 +2,11 @@ import BasicLayout from "../../layouts/BasicLayout";
 
 
 const ListPage = () => {
-  return (
+  return ( 
     <BasicLayout>
-      <div className="flex justify-center items-center text-2xl font-serif italic font-medium">
-        Board List Page
-      </div>
+      Board List Page
     </BasicLayout>
-  );
+   );
 }
-
+ 
 export default ListPage;
