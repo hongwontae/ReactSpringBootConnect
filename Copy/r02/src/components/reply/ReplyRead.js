@@ -70,14 +70,14 @@ const ReplyRead = ({ rno, cancelRead, refreshPage }) => {
                 <div>{reply.replyer}</div>
             </div>
 
-            <div>
-                <span>
+            <div className="text-white">
+                <span className="m-5 font-serif border-2 border-sky-300">
                     <button onClick={handleClickModify}>MODIFY</button>
                 </span>
-                <sapn>
+                <sapn className="m-5 font-serif border-2 border-sky-300">
                     <button onClick={handleClickDelete}>DELETE</button>
                 </sapn>
-                <span>
+                <span className="m-5 font-serif border-2 border-sky-300">
                     <button onClick={cancelRead}>CANCEL</button>
                 </span>
             </div>
