@@ -37,21 +37,23 @@ public class FileUploader {
             throw new UploadException("No File");
         }
 
-        List<String> uploadFileNames =  new ArrayList<>();
+        List<String> uploadFileNames =  new ArrayList<>(); //배열 형식의 리스트(스트링)으로 uploadFileNames을 생성한다.
         
-        log.info("path: " + path);
+        log.info("path: " + path); // value 패스는
 
-        log.info(files);
+        log.info(files); // 들어오는 파일 log
 
-        //loop 
+        //loop //why? => 파일 하나만이 아니라 다 오게 하려고 그래서 enhanced for문을 사용하여 가져온다.
         for (MultipartFile mFile : files) {
             
-            String originalFileName = mFile.getOriginalFilename();
-            String uuid = UUID.randomUUID().toString();
+            String originalFileName = mFile.getOriginalFilename(); // 파일의 원래이름을 반환한다. string
+            log.info(originalFileName);
+            String uuid = UUID.randomUUID().toString(); //uuid 생성 string
+            log.info(uuid);
 
-            String saveFileName = uuid+"_"+originalFileName;
+            String saveFileName = uuid+"_"+originalFileName; // 일반 파일의 형식을 만들어준다.
             
-            File saveFile = new File(path,saveFileName );
+            File saveFile = new File(path,saveFileName ); // 경로를 가지고 있는 파일 객체 생성 saveFileName=> String
 
             try ( InputStream in = mFile.getInputStream();
                   OutputStream out = new FileOutputStream(saveFile);  
