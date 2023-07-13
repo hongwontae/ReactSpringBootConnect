@@ -15,7 +15,7 @@ const ReadPage = () => {
     return (  
         <div>
 
-            <ReadComponent bno={bno} moveList={moveList}></ReadComponent>
+            <ReadComponent bno={bno} moveList={moveList}></ReadComponent>   
 
             
             <ReplyWrapper bno={bno}></ReplyWrapper>
