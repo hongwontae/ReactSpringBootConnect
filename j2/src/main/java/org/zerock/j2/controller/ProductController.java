@@ -84,4 +84,8 @@ public class ProductController {
         service.remove(pno);
         return Map.of("result", pno);
     }
+
+
+
+    
 }

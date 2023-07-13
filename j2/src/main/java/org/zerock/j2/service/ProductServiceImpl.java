@@ -106,6 +106,9 @@ public class ProductServiceImpl implements ProductService {
         productRepository.save(product);
         //save()
 
+        List<String> newFiles = productDTO.getImages();
+        List<String> wantDelFoles = oldFileNames.stream().filter(f -> newFiles.indexOf(f) == -1)
+        .collect(Collectors.toList());
     }
 
 }
