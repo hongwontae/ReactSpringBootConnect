@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react"
-import { deleteProduct, getProduct } from "../../api/productAPI"
+import { deleteProduct, getProduct, putProduct } from "../../api/productAPI"
 
 
 const initState = {
@@ -39,6 +39,7 @@ const ModifyComponent = ({pno, moveList, moveRead}) => {
 
         const formData = new FormData();
 
+        formData.append("pno", product.pno)
         formData.append("pname", product.pname)
         formData.append("pdesc", product.pdesc)
         formData.append("price", product.price)
@@ -55,6 +56,20 @@ const ModifyComponent = ({pno, moveList, moveRead}) => {
         for(let file of arr){
             formData.append("files", file)
         }
+
+        putProduct(formData).then(data => {
+            console.log(data)
+        })
+    }
+
+    const handleClickDeImg = (fname) =>{
+
+        const newArr = product.images.filter(ele => ele !== fname)
+        product.images = newArr
+
+        setProduct({...product})
+
+
     }
 
 
@@ -98,6 +113,7 @@ const ModifyComponent = ({pno, moveList, moveRead}) => {
                     className="m-2"
                     >
                        <img src={`http://localhost/s_${fname}`}></img> 
+                       <button className="bg-red-500">x</button>
                     </li>)}
                 </ul>
             </div>
@@ -105,7 +121,7 @@ const ModifyComponent = ({pno, moveList, moveRead}) => {
             <div>
                 <button 
                 className="bg-fuchsia-600 border-2 m-2 p-2 text-white font-bold"
-                onClick={moveList}
+                onClick={handleClickModify}
                 >
                     Modify
                 </button>
