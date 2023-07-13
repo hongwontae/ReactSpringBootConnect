@@ -38,6 +38,7 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
         query.where(productImage.ord.eq(0));
 
         int pageNum = pageRequestDTO.getPage() <= 0 ? 0 : pageRequestDTO.getPage() - 1;
+
         Pageable pageable = PageRequest.of(pageNum, pageRequestDTO.getSize(),
                 Sort.by("pno").descending());
 
@@ -45,12 +46,10 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
 
         JPQLQuery<ProductListDTO> dtoQuery = query.select(
                 Projections.bean(ProductListDTO.class,
-                        product.pno,
-                        product.pname,
+                        product.pno, product.pname,
                         product.price,
                         productImage.fname));
         List<ProductListDTO> dtoList = dtoQuery.fetch();
-
         long totalCount = dtoQuery.fetchCount();
 
         return new PageResponseDTO<>(dtoList, totalCount, pageRequestDTO);
@@ -65,35 +64,34 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
 
         JPQLQuery<Product> query = from(product);
         query.leftJoin(product.images, productImage);
-        query.where(productImage.ord.eq(0));
         query.leftJoin(review).on(review.product.eq(product));
 
-
+        query.where(productImage.ord.eq(0));
+        query.where(product.delFlag.eq(Boolean.FALSE));
 
         int pageNum = pageRequestDTO.getPage() <= 0 ? 0 : pageRequestDTO.getPage() - 1;
+
         Pageable pageable = PageRequest.of(pageNum, pageRequestDTO.getSize(),
                 Sort.by("pno").descending());
 
         this.getQuerydsl().applyPagination(pageable, query);
-
+        // 에러가 나오는데 grouping 되지않는애가 있기때문
+        // 해결책 group함수를 통해서 얘를 그룹함수에 영향을 받게한다.
+        // 또는 그룹되지않는 영역을 그룹화 한다.
         query.groupBy(product);
 
         JPQLQuery<ProductListDTO> dtoQuery = query.select(
                 Projections.bean(ProductListDTO.class,
-                        product.pno,
-                        product.pname,
+                        product.pno, product.pname,
                         product.price,
                         productImage.fname.min().as("fname"),
                         review.score.avg().as("reviewAvg"),
                         review.count().as("reviewCnt")
-                        )
-                        );
+                        ));
         List<ProductListDTO> dtoList = dtoQuery.fetch();
-
         long totalCount = dtoQuery.fetchCount();
 
         return new PageResponseDTO<>(dtoList, totalCount, pageRequestDTO);
-
     }
 
 }

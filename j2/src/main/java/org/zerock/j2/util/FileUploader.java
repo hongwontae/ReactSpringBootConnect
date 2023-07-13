@@ -20,65 +20,75 @@ import net.coobird.thumbnailator.Thumbnailator;
 @Log4j2
 public class FileUploader {
 
+    // 예외 정의 파일이 없을때 예외발생
     public static class UploadException extends RuntimeException {
 
-        public UploadException(String msg){
+        public UploadException(String msg) {
             super(msg);
         }
-
     }
-    
+
     @Value("${org.zerock.upload.path}")
     private String path;
 
-    public List<String> uploadFiles(List<MultipartFile> files, boolean makeThumbnail){
+    public List<String> uploadFiles(List<MultipartFile> files, boolean makeThumbnail) {
 
-        if(files == null  || files.size() == 0){
-            throw new UploadException("No File");
+        if (files == null || files.size() == 0) {
+            throw new UploadException("Files do not exist");
         }
 
-        List<String> uploadFileNames =  new ArrayList<>(); //배열 형식의 리스트(스트링)으로 uploadFileNames을 생성한다.
-        
-        log.info("path: " + path); // value 패스는
+        List<String> uploadFileNames = new ArrayList<>();
 
-        log.info(files); // 들어오는 파일 log
+        log.info("path: " + path);
 
-        //loop //why? => 파일 하나만이 아니라 다 오게 하려고 그래서 enhanced for문을 사용하여 가져온다.
+        log.info(files);
+
+        // loop
         for (MultipartFile mFile : files) {
-            
-            String originalFileName = mFile.getOriginalFilename(); // 파일의 원래이름을 반환한다. string
-            log.info(originalFileName);
-            String uuid = UUID.randomUUID().toString(); //uuid 생성 string
-            log.info(uuid);
 
-            String saveFileName = uuid+"_"+originalFileName; // 일반 파일의 형식을 만들어준다.
-            
-            File saveFile = new File(path,saveFileName ); // 경로를 가지고 있는 파일 객체 생성 saveFileName=> String
+            String originalFileName = mFile.getOriginalFilename();
+            String uuid = UUID.randomUUID().toString();
 
-            try ( InputStream in = mFile.getInputStream();
-                  OutputStream out = new FileOutputStream(saveFile);  
-             ) {
+            String saveFileName = uuid + "_" + originalFileName;
+            File saveFile = new File(path, saveFileName);
+
+            try (InputStream in = mFile.getInputStream();
+                    OutputStream out = new FileOutputStream(saveFile);) {
 
                 FileCopyUtils.copy(in, out);
-
-                //썸네일 필요하다면
-                if(makeThumbnail){
+                // 썸네일이 필요할때
+                if (makeThumbnail) {
                     File thumbOutFile = new File(path, "s_"+saveFileName);
 
                     Thumbnailator.createThumbnail(saveFile, thumbOutFile, 200, 200);
-
                 }
 
-                
                 uploadFileNames.add(saveFileName);
-                
-            } catch (Exception e) {
-                throw new UploadException("Upload Fail:" + e.getMessage() );
-            }
 
+            } catch (Exception e) {
+                throw new UploadException("Upload Fail: " + e.getMessage());
+            }
         }
 
         return uploadFileNames;
+    }
+
+    public void removeFiles(List<String> fileNames){
+
+        if(fileNames== null ||fileNames.size()==0){
+            return;
+        }
+        for (String fname: fileNames)
+        {
+
+            File original = new File(path, fname);
+            File thumb = new File(path, "s_"+fname);
+
+            if (thumb.exists()){
+                thumb.delete();
+            }
+            original.delete();
+        }
     }
 
 }

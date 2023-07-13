@@ -3,6 +3,7 @@ package org.zerock.j2.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+
 @Entity
 @Getter
 @ToString(exclude = "product")
@@ -23,5 +24,4 @@ public class ProductReview {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
-
 }

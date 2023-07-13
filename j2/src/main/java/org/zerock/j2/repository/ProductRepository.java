@@ -7,9 +7,12 @@ import org.springframework.data.repository.query.Param;
 import org.zerock.j2.entity.Product;
 import org.zerock.j2.repository.search.ProductSearch;
 
+
 public interface ProductRepository extends JpaRepository<Product, Long>, ProductSearch {
     
+    // 상세보기용을 위한 JPQL 작업
     @EntityGraph(attributePaths = "images")
-    @Query("select p from Product p where p.pno = :pno")
-    Product selectOne(@Param("pno") Long pno);
+    @Query("select p from Product p where p.delFlag = false and p.pno = :pno ")
+    Product selectOne(@Param("pno")Long pno);
+
 }

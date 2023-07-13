@@ -3,33 +3,47 @@ package org.zerock.j2.controller;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.tomcat.util.http.fileupload.FileUpload;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.zerock.j2.dto.*;
+
+import org.springframework.web.bind.annotation.*;
+import org.zerock.j2.dto.PageRequestDTO;
+import org.zerock.j2.dto.PageResponseDTO;
+import org.zerock.j2.dto.ProductDTO;
+import org.zerock.j2.dto.ProductListDTO;
 import org.zerock.j2.service.ProductService;
 import org.zerock.j2.util.FileUploader;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-
-@CrossOrigin
 @RestController
+@CrossOrigin
 @RequestMapping("/api/products/")
-@Log4j2
 @RequiredArgsConstructor
+@Log4j2
 public class ProductController {
 
     private final ProductService service;
 
     private final FileUploader uploader;
 
+    @GetMapping("list")
+    public PageResponseDTO<ProductListDTO> list(PageRequestDTO pageRequestDTO) {
+
+        log.info("-------------------------------");
+        log.info((pageRequestDTO));
+
+        return service.list(pageRequestDTO);
+    }
+    @GetMapping("{pno}")
+    public  ProductDTO getOne(@PathVariable("pno") Long pno){
+
+        log.info("PNO..............." + pno);
+
+        return service.readOne(pno);
+    }
+
     @PostMapping("")
-    public Map<String, Long> register( ProductDTO productDTO ){
+    public Map<String, Long> register(ProductDTO productDTO) {
 
         log.info(productDTO);
 
@@ -39,18 +53,14 @@ public class ProductController {
         Long pno = service.register(productDTO);
 
         return Map.of("result", pno);
-    }
-
-    @GetMapping(value="list")
-    public PageResponseDTO<ProductListDTO> list(PageRequestDTO pageRequestDTO) {
-
-        log.info("---------------------------");
-        log.info(pageRequestDTO);
-
-        return service.list(pageRequestDTO);
 
     }
-    
+    @DeleteMapping("{pno}")
+    public Map<String, Long> delete(@PathVariable("pno") Long pno){
 
-    
+        log.info("PNO..............." + pno);
+        service.remove(pno);
+        return Map.of("result",pno);
+    }
+
 }
