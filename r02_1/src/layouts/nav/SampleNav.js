@@ -8,9 +8,13 @@ const SampleNav = () => {
 
     return (
         <div className="flex m-6 p-6 text-white font-extrabold ">
-
+            
             <div className="m-5 text-3xl ">
                 <Link to="/">Main</Link>
+
+            </div>
+            <div className="m-5 text-3xl ">
+            <span className="bg-red-300 font-extrabold">{todoArr.length}</span>
             </div>
             <div className="m-5 text-3xl ">
                 <Link to="/about">About</Link>
@@ -21,9 +25,10 @@ const SampleNav = () => {
             <div className="m-5 text-3xl ">
                 <Link to="/board/list">Board</Link>
             </div>
-            <div className="m-5 text-3xl">
-                <LoginNav></LoginNav>
+            <div className="m-5 text-2xl">
+              <LoginNav></LoginNav>
             </div>
+         
         </div>
     );
 }

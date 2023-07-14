@@ -49,17 +49,17 @@ const ListComponent = ({queryObj,movePage, moveRead}) => {
                      
                      <li
                       key={pno}
-                     className="border-2 border-white text-white text-2xl font-bold w-2/5 h-[300px] bg-sky-300 m-2 p-2 rounded-md shadow-lg"
+                     className="border-2 border-white text-white text-2xl font-bold w-1/6 h-[280px] bg-sky-300 m-2 p-2 rounded-md shadow-lg"
                      onClick={()=> moveRead(pno)}
                      >  
                         <div className="">
                             <div className="font-extrabold">{pno}</div>
                             <div className="flex justify-center items-center">
-                                <img src={`http://localhost/s_${fname}`} className="w-24"  alt="No image"></img>
+                                <img src={`http://localhost/s_${fname}`} className="w-20"  alt="No image"></img>
                             </div>
                             <div>
-                                <div className="text-center">{pname} - {price}</div>
-                                <div  className="text-right">리뷰 {reviewCnt} - {reviewAvg}</div>
+                                <div className="text-center text-xl">{pname} - {price}</div>
+                                <div  className="text-right text-xl">리뷰 {reviewCnt} - {reviewAvg}</div>
                             </div>
                           
                            

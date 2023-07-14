@@ -1,17 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const todoslice = createSlice({
-    name : "todoSlice",
-    initialState :['aaa','bbb'],
-    reducers : {
-        addTodo : (state, param) => {
-            console.log("todo..",state)
 
-            return [...state, param.payload]
+const todoSlice = createSlice ({
+
+    name:"todoSlice",
+    initialState: ['AAA','BBB'],
+
+    reducers: {
+
+        addTodo: (state, param) =>{
+                console.log("todo...",state)
+
+                return [...state,param.payload]
         }
-    }    
+    }
+
 })
 
-export const {addTodo} = todoslice.actions
+export const {addTodo} = todoSlice.actions
 
-export default todoslice.reducer
+export default todoSlice.reducer

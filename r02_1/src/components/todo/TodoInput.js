@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTodo } from "../../reducers/todoslice";
+import { addTodo } from "../../reducers/todoSlice";
+
 
 const TodoInput = () => {
 
-    const [text, setText] = useState('') 
+    const [text, setText] = useState('')
 
     const dispatch = useDispatch()
 
@@ -12,13 +13,13 @@ const TodoInput = () => {
         dispatch(addTodo(text))
     }
 
-    return ( 
+    return (  
         <div>
             Todo Input
-            <input type="text" value={text} onChange={(e) => e.target.value}></input>
-            <button onClick={handleClickSave}>Save</button>
+            <input className="bg-black" type="text" value={text} onChange={e => setText(e.target.value)}></input>
+            <button onClick={handleClickSave}>SAVE</button>
         </div>
-     );
+    );
 }
  
 export default TodoInput;

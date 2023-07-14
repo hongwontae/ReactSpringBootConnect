@@ -39,7 +39,6 @@ export const deleteProduct = async (pno) =>{
 
     return res.data
 }
-
 export const putProduct = async(formdata) => {
 
 

@@ -1,22 +1,29 @@
+import CountButtons from "../components/counter/CountButtons";
+import CountDisplay from "../components/counter/CountDisplay";
 import TodoInput from "../components/todo/TodoInput";
-import CounterButton from "../counter/CounterButton";
-import CounterDisplay from "../counter/CounterDisplye";
 import BasicLayout from "../layouts/BasicLayout";
 
 
 const AboutPage = () => {
 
-  console.log("about go")
-  return (
-    <div className="text-center font-serif text-2xl text-white">
-    <BasicLayout>
-      <TodoInput></TodoInput>
-      <CounterDisplay></CounterDisplay>
-      <CounterButton></CounterButton>
-    </BasicLayout>
+    console.log("about go")
+    return ( 
+        <div  className="bg-backImg bg-cover bg-no-repeat">
+        <BasicLayout></BasicLayout>
+        <div className="text-white text-center text-3xl font-bold ">
+        
 
-    </div>
-  );
+          <CountDisplay></CountDisplay>
+          <CountButtons></CountButtons>
+
+          <TodoInput></TodoInput>
+
+          <div className="flex justify-center items-center">
+          <img  src={require('../image/backimage.jpg')} ></img>
+          </div>
+         </div>
+      </div>
+     );
 }
-
+ 
 export default AboutPage;
