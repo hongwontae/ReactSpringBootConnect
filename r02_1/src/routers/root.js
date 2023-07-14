@@ -18,6 +18,9 @@ const Products_Register = lazy(()=> import("../pages/products/RegisterPage"))
 const Products_Read = lazy(()=> import("../pages/products/ReadPage"))
 const Products_Modify = lazy(()=> import("../pages/products/ModifyPage"))
 
+const member_login =  lazy(()=> import("../pages/member/LoginPage"))
+
+
 const router = createBrowserRouter([
     {
         path: "",
@@ -26,6 +29,10 @@ const router = createBrowserRouter([
     {
         path: "about",
         element: <AboutPage></AboutPage>
+    },
+    {
+        path : "member/login",
+        element : <Suspense fallback={Loading}></Suspense>
     },
     {
         path: "board",
