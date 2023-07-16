@@ -1,0 +1,71 @@
+SpringBoot 20230703
+
+어노테이션
+
+1. @Entity
+=> Entity 객체를 생성한다. 만약 @Table이 없다면 테이블도 생성한다.
+
+2. @ID
+=> pk설정한다.
+
+3. @ Column
+=> 기본적으로 내부변수는 @column를 갖고 있다. 칼럼에 속성을 주고 싶을 때 사용한다.
+=> @Column(name="register_date") 이름 부여가능
+=> @Column(length=300) 길이 부여가능
+=> 생략하면 변수 이름이 칼럼 이름이 된다.
+
+4. @GeneratedValue
+=> auto_increment
+=> @GeneratedValue(strategy=GenerationType.IDENTIFY)
+
+5. @Table
+=> 테이블 이름을 주는 어노테이션이다.
+
+=> Entity와 Table은 서로 매핑된 상태가 좋은 상태이다.
+
+
+JPA를 사용하고 싶을 떄 사용하는 Build처리
+1. initializar
+2. springWeb, DevTool, Mysql, Lombok, springJPA를 Gradle한다.
+3. domain 패키지 작성 => 테이블 객체를 생성하는 곳이다.
+4. Repository 패키지를 만든다. => 저장소란 뜻
+=> Entity에 접근하기 위해서 만든다.
+=> 인터페이스이다.
+5. DTO 패키지를 만든다. => TodoDTO, PageResponseDTO 클래스를 만든다.
+
+PageRequest란
+몇 페이지, 한 페이지의 사이즈, Sorting 방법(Option)을 가지고,
+Repository에 Paging을 요청할 때 사용하는 것
+
+jpaRepository => 인터페이스이다.
+extends해서 가져오는 이유? => 딸린 클래스들을 가져오기 위해서이다. 메서드 활용을 위해
+JPARepository<도메인클래스명, pk값>
+
+· JpaRepository는 PagingAndSortingRepository, QueryByExampleExecutor 인터페이스를 상속받고 있음
+
+ · PagingAndSqortingRepository는 CrudRepository 인터페이스를 상속받고 있음
+
+ · CrudRepository 인터페이스에는 기본적인 CRUD 메소드 제공
+
+  → save(), findById(), existsById(), count(), deleteById(), delete(), deleteAll()
+
+ · QueryByExampleExecutor 인터페이스에는 더 다양한 CRUD 메소드 제공
+
+  → findOne(), findAll(), count(), exists()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

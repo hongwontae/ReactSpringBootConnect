@@ -1,0 +1,20 @@
+Swagger UI
+
+라우터 설정
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <div>Hello world!</div>,
+  },
+]);
+
+라우터를 실행하면 모든 페이지를 모두 렌더링한다.
+
+리액트 이동 방식은 2가지
+리액트 라우터 link속성 <Link>
+
+url로 움직이는 것은 정말 위험하다.
+
+tailwind css 적용법 => 구글 검색하면 나온다.
+
+

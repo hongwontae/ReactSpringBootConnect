@@ -1,0 +1,14 @@
+Component는 실제처리
+
+router => 수정, 레이아웃 => 유지보수를 하기 위해서
+
+useEffect props를 온 애를 상태로 처리
+
+util file처리 메서드 작성 => service 처리 추상메서드 하나 => serviceImpl 처리 오버라이딩 하나
+
+=> Controller 처리 
+@GetMapping ()
+public Map<String, Long>
+
+React 처리
+deleteProduct pno 전달

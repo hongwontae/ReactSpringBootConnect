@@ -1,0 +1,51 @@
+JPA20230705_2
+
+reply 테스트에서 보드 객체가 필요하다. 
+객체는 object.lang를 받는다. equals, hashcode의 메서드를 물려받는다.
+
+5개가 나오고 5개가 나와야 된다.
+
+컴퓨터 - aws 
+=> gitHub에 올리는데 프로젝트 단위로 올려라
+=> aws가 깃헙 저장소를 clone를 한다.
+
+test insert 코드는 주석처리를 하는 것이 좋다. 작업하고 나서...
+
+쿼리 메서드 중에 우리가 필요한 것은 bno이다.
+댓글의 목록을 가져와야 해서...
+쿼리문, 쿼리메서드, @QUERY로 만들어야 한다.
+
+toString reply, board 둘 다 해야가지고 쿼리를 board를 가져와서 조회해버린다. jpa내의 처리
+
+연관관계를 걸떄는 Laye로딩을 기본적으로 설정해야 한다.
+
+JPA
+no session이 발생하면 transactional이 필요하다.
+
+sql, jpql, dsql
+
+jpa 레파지토리를 상속하면 
+ save()	 레코드 저장 (insert, update)
+ findOne()	 primary key로 레코드 한건 찾기
+ findAll()	 전체 레코드 불러오기. 정렬(sort), 페이징(pageable) 가능
+ count()	 레코드 갯수
+ delete()	 레코드 삭제
+
+메서드를 상속받을 수 있다.
+
+복잡한 쿼리는 직접 작성해야 한다. 메서드 위에 @Query를 써서 사용한다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,81 @@
+2023-07-12 水 JPA
+
+임베디드 
+
+ElementCollection
+
+OneToMany = 팀과 선수
+주체를 따져보았을 떄 팀과 선수는 다르다.
+Crud 선수가 없어져도 팀은 존재한다.
+이 경우가 OneToMany이다.
+
+ElementCollection => 상품과 상품이미지
+주체를 따져보았을 떄 상품과 상품이미지는 종속적이다.
+상품이 사라지면 상품이미지도 사라진다.
+완벽하게 종속적이다. => 그러면 OneToMany가 아니다.
+
+OneToMany => Cascade를 항상 생각해야 한다.
+ProductImages => 프로덕트를 지우면 알아서 지워진다.
+
+entityGrap는 pk가 없다.
+update하려면 다 지우고 기존에 것 가져오고 체인지 된거 가져온다.
+
+리뷰에서만 상품 정보를 물고 있으면 상품 쪽에서 개발한 것은 유일하게 되어 신경 쓸 필요가 없다.
+
+리스트 작업은 querydsql
+
+리뷰 테이블을 만들고 싶다.
+
+양방향 참조에서는 ToString이 큰 문제가 될 수 있다.
+
+jpa에서는 count 값은 Long 타입을 써야 한다.
+숫자 타입은 float이 아니라 double 타입이다.
+
+jpql 상품으로 그룹바이를 해야 한다. => 객체 지향적으로 봐야 해서
+limit가 안걸리면 DB가 많아질 수록 오류가 발생한다.
+
+favoirte
+
+1. 파일을 저장하는 프로세스
+2. DTO를 jpa가 저장하기 쉽게 만들어야 한다.
+
+파일이 저장이 안되면 상품등록의 실패이다.
+
+1단계 - 파일 저장
+1-1 이미지파일이라면 썸네일을 생성, 원본파일 저장
+
+모델 매퍼를 사용하면 => 새로고침을 한다.
+
+CORS => CrossOrigin을 봐야 된다.
+
+return null
+
+상품의 이미지가 그대로 올라간다.
+
+
+FileUploader.java
+productDTO => fils 뷰, images =>DB
+Controller 작업
+Service 작업
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
