@@ -2,7 +2,7 @@ import SampleNavi from "./navi/SampleNavi";
 
 const BasicLayout = ({children}) => {
     return ( 
-        <div className="container mx-auto min-w-[1280px] bg-neutral-400 ">
+        <div className="container mx-auto min-w-[1280px] bg-slate-600 ">
             <div>
                 <SampleNavi></SampleNavi>
             </div>

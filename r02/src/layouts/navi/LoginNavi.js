@@ -22,7 +22,7 @@ const LoginNavi = () => {
 
     return ( 
         <div>
-            <div>
+            <div className="border-2">
                 <Link to="/member/login">LOGIN</Link>
             </div>
 

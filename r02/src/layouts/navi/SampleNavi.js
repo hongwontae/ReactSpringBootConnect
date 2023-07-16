@@ -9,21 +9,21 @@ const SampleNavi = () => {
 
     return ( 
         <div className="flex m-3 p-4 mx-auto text-white  bg-slate-800">
-            <div className="flex ml-10 font-Archivo">
-                <div className="m-3 p-2 text-3xl border-b-2">
+            <div className="flex ml-10 font-bold">
+                <div className="m-3 p-2 text-3xl border-2">
                     <Link to={"/"}>Main</Link>
-                    <span className="bg-red-600">{todoArr.length}</span>
+                    <span className="bg-emerald-700 ">{todoArr.length}</span>
                 </div>
-                <div className="m-3 p-2 text-3xl border-b-2">
+                <div className="m-3 p-2 text-3xl border-2">
                     <Link to={"/about"}>About</Link>
                 </div>
-                <div className="m-3 p-2 text-3xl border-b-2">
+                <div className="m-3 p-2 text-3xl border-2">
                     <Link to={"/products/list"}>Products</Link>
                 </div>
-                <div className="m-3 p-2 text-3xl border-b-2">
+                <div className="m-3 p-2 text-3xl border-2">
                     <Link to={"/board/list"}>Board</Link>
                 </div>
-                <div className=" ml-[60vh]">
+                <div className=" ml-[60vh]" >
                     <LoginNavi></LoginNavi>
                 </div>
             </div>

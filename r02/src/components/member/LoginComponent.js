@@ -19,12 +19,12 @@ const LoginComponent = () => {
 
     return ( 
         <div className="text-2xl">
-            <div className="h-[40vh] bg-white w-[40vh] my-20 mx-auto">
-                <div className="pt-[15vh] px-2 ">
+            <div className="h-[40vh] bg-slate-300 w-[40vh] my-20 mx-auto">
+                <div className="pt-[7vh] px-2 ">
                     <div className="overflow-hidden ">
                         <label className="float-left">email</label>
                         <input type="text" name="email" value={loginInfo.email}
-                        className="p-1 float-right border-2 border-black rounded text-center "
+                        className="p-1 float-right border-2 border-black text-center "
                         onChange={() => {}}></input>
                     </div>
                     <div className="overflow-hidden">
