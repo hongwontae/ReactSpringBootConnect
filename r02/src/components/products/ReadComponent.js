@@ -30,7 +30,7 @@ const ReadComponent = ({pno, moveModify, moveList}) => {
 
     return ( 
         <div>
-            <div className="m-2 p-2 text-white">
+            <div className="m-2 p-2 text-white bg-zinc-400">
                 <div className="m-2 p-2 border-2">
                 {product.pname}
                 </div>
@@ -51,12 +51,12 @@ const ReadComponent = ({pno, moveModify, moveList}) => {
                 </div>
                 <div>
                     <button
-                    className="bg-blue-300 border-2 m-2 p-2 text-white font-bold"
+                    className="bg-neutral-700 border-2 m-2 p-2 text-white font-bold"
                     onClick={()=> moveModify(product.pno)}>
                         Modify
                     </button>
                     <button
-                    className="bg-blue-300 border-2 m-2 p-2 text-white font-bold"
+                    className="bg-neutral-700 border-2 m-2 p-2 text-white font-bold"
                     onClick={moveList}>
                         List
                     </button>

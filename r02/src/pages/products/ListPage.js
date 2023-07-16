@@ -4,27 +4,31 @@ import { createSearchParams } from "react-router-dom"
 
 const ListPage = () => {
 
-    const {queryObj, setSearch, moveRead, moveList} = useQueryObj()
+    const { queryObj, setSearch, moveRead, moveList } = useQueryObj()
 
     const movePage = (num) => {
-        console.log("num===" , num)
+        console.log("num===", num)
         queryObj.page = num
-        setSearch({...queryObj})
+        setSearch({ ...queryObj })
     }
 
 
 
-    return ( 
-        <div className="text-3xl bg-slate-800">
-            Products_ListPage
+    return (
+        <div className=" bg-slate-500">
+            <div>
+                <div className="text-2xl pb-2 text-center text-white">
+                    Products ListPage
+                </div>
 
-            <ListComponent 
-            queryObj={queryObj} 
-            movePage={movePage} 
-            moveRead={moveRead}>
-            </ListComponent>
+                <ListComponent
+                    queryObj={queryObj}
+                    movePage={movePage}
+                    moveRead={moveRead}>
+                </ListComponent>
+            </div>
         </div>
-     );
+    );
 }
- 
+
 export default ListPage;

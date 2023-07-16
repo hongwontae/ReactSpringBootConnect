@@ -18,7 +18,7 @@ const ReadPage = () => {
 
 
     return ( 
-        <div>
+        <div className="text-left text-2xl">
             <ReadComponent 
             pno={pno} 
             moveModify={moveModify} 

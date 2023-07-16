@@ -13,13 +13,14 @@ const RegisterPage = () => {
     }
 
 
-    return ( 
-        <div
-        className="text-2xl">
-            Product Register page
+    return (
+        <div className="bg-slate-500">
+            <div className="text-2xl pb-2 text-center text-white">
+                Product Register page
+            </div>
             <RegisterComponent moveList={moveList}></RegisterComponent>
         </div>
-     );
+    );
 }
- 
+
 export default RegisterPage;
