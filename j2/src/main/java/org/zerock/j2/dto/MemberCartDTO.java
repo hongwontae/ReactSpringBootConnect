@@ -2,21 +2,19 @@ package org.zerock.j2.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-@Getter
+@Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@NoArgsConstructor
 public class MemberCartDTO {
 
-    private Long cno;
+    private  Long cno;
 
-    private String email;
+    private  String email;
 
     private Long pno;
-    
+
 }

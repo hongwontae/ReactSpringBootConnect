@@ -15,6 +15,10 @@ const LoginComponenet = () => {
     const [loginInfo, setLoginInfo] = useState({ ...initState })
     
     const dispatch = useDispatch()
+    
+    const errorMsg = loginState.errorMsg
+
+    console.log("ERRORS " + errorMsg)
 
     
 

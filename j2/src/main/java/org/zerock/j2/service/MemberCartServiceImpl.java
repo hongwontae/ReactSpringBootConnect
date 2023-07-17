@@ -1,22 +1,30 @@
 package org.zerock.j2.service;
 
-import java.util.List;
-
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.zerock.j2.dto.MemberCartDTO;
+import org.zerock.j2.entity.MemberCart;
 import org.zerock.j2.repository.MemberCartRepository;
 
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class MemberCartServiceImpl implements MemberCartService {
+@Log4j2
+public class MemberCartServiceImpl implements MemberCartService{
 
-    private final MemberCartRepository memberCartRepository;
-
+    private final MemberCartRepository cartRepository;
     @Override
     public List<MemberCartDTO> addCart(MemberCartDTO memberCartDTO) {
-        return null;
+
+        MemberCart cart = dtoToEntity(memberCartDTO);
+
+        cartRepository.save(cart);
+
+        List<MemberCart> cartList =cartRepository.selectCart(memberCartDTO.getEmail());
+
+        return cartList.stream().map(entity -> entityToDTO(entity)).collect(Collectors.toList());
     }
-    
 }
