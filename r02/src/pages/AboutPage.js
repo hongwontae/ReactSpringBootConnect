@@ -13,7 +13,9 @@ const AboutPage = () => {
     return ( 
 
         <BasicLayout>
+             
             <h2>About Page</h2>
+            
 
             <CountDisplay></CountDisplay>
             <CountButtons></CountButtons>

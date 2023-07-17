@@ -35,7 +35,7 @@ const ListComponent = ({queryObj, movePage, moveRead}) => {
     return ( 
         <div>
             <div>
-                <div className="text-2xl pb-2 text-center text-white">ListComponent</div>
+                <div className=" text-white">ListComponent</div>
                 
             </div>
             <div>
@@ -47,7 +47,7 @@ const ListComponent = ({queryObj, movePage, moveRead}) => {
                         key={dto.pno}
                         onClick={() => moveRead(dto.pno)}
                         >
-                            <div className=" text-center text-2xl">
+                            <div className=" text-center">
                                 <div className="text-slate-800">
                                     {dto.pno}
                                 </div>

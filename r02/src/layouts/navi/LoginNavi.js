@@ -1,27 +1,35 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import CartNav from "./CartNav";
-
-const LoginNav = () => {
-
-   const { email, nickname } = useSelector(state => state.login)
-
-   console.log("LoginNav...........", email, nickname)
-
-   if (email !== '') {
-      return(
-      <div className="font-serif">
-         <div>{email} - {nickname} </div>
-         <CartNav></CartNav>
-      </div>)
-   }
+import CartNavi from "./CartNavi";
 
 
-   return (
-      <div>
-         <Link to="/member/login"> <div>LOGIN</div></Link>
-      </div>
-   );
+const LoginNavi = () => {
+
+    const {email,nickname} = useSelector(state => state.login)
+
+    console.log("LoginNavi..........", email)
+
+    if(email !== '') {
+        return (
+            <div>
+                <div>
+                    {email} - {nickname}
+                </div>
+                <CartNavi></CartNavi>
+            </div>
+
+        )
+    }
+
+
+    return ( 
+        <div>
+            <div>
+                <Link to="/member/login">LOGIN</Link>
+            </div>
+
+        </div>
+     );
 }
-
-export default LoginNav;
+ 
+export default LoginNavi;

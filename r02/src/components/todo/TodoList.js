@@ -8,7 +8,7 @@ const TodoList = () => {
 
     return ( 
         <div>
-            <ul className="text-center">
+            <ul>
                 {todoArr.map((ele,idx) => <li key={idx}>{ele}</li>)}
             </ul>
         </div>

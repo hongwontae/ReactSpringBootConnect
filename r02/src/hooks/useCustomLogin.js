@@ -4,28 +4,26 @@ import { useEffect } from "react";
 
 const useCustomLogin = (fn) => {
 
-  const loginInfo = useSelector(state => state.login)
+    const loginInfo = useSelector(state => state.login)
 
-  const navigate = useNavigate()
+    const navigate = useNavigate()
 
-  useEffect(() => {
+    useEffect(() => {
 
-    if (fn) {
-      if (!loginInfo.email) {
-        fn(navigate)
-      }
-      return
-    }
+        if(fn){
+            if(!loginInfo.email){
+                fn(navigate)
+            }
+            return
+        }
 
-    console.log("signed: " + loginInfo.email)
-    if (!loginInfo.email) {
-      navigate("/member/login")
-    }
+        console.log(loginInfo.email)
+        if(!loginInfo.email){
+            navigate("/member/login")
+        }
+    },[loginInfo.email])
 
-  }, [loginInfo.email])
-
-  return { loginInfo }
+    return {loginInfo}
 }
-
 
 export default useCustomLogin

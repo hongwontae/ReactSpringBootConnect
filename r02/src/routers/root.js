@@ -1,8 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import AboutPage from "../pages/AboutPage";
-import ListPage from "../pages/board/ListPage";
-import IndexPage from "../pages/board/IndexPage";
+
 
 import { Suspense, lazy } from "react";
 import LoadingPage from "../pages/LoadingPage";
@@ -20,7 +19,6 @@ const Products_Modify = lazy(() => import("../pages/products/ModifyPage"))
 
 const Member_Login = lazy(() => import("../pages/member/LoginPage"))
 
-
 const router = createBrowserRouter([
   {
     path:"",
@@ -32,7 +30,7 @@ const router = createBrowserRouter([
   },
   {
     path: "member/login",
-    element: <Suspense fallback={Loading}><Member_Login/></Suspense>
+    element: <Suspense fallback={Loading}><Member_Login/></Suspense>,
   },
   {
     path: "board",
@@ -67,9 +65,10 @@ const router = createBrowserRouter([
       {
         path: "modify/:pno",
         element: <Suspense fallback={Loading}><Products_Modify/></Suspense>
-      },
+      }
     ]
-  }
+  },
+  
 
 ])
 

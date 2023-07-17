@@ -1,25 +1,29 @@
 import { useEffect, useState } from "react";
 import { getProduct } from "../../api/productAPI";
+import { useDispatch, useSelector } from "react-redux";
+import { addCartThunk } from "../../reducers/cartSlice";
 
 
 const initState = {
-    pno: 0,
-    pname: '',
-    pdesc: '',
-    price: 0,
-    images: []
+    pno:0,
+    pname:'',
+    pdesc:'',
+    price:0,
+    images:[]
 }
 
 
 
-const ReadComponent = ({ pno, moveModify, moveList }) => {
+const ReadComponent = ({pno, moveModify, moveList}) => {
 
-
+    const {email} = useSelector(state => state.login)
 
     const [product, setProduct] = useState(initState)
 
-    useEffect(() => {
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        
         getProduct(pno).then(data => {
             setProduct(data)
         }).catch(e => {
@@ -27,14 +31,14 @@ const ReadComponent = ({ pno, moveModify, moveList }) => {
             moveList()
         })
 
-    }, [pno])
+    },[pno])
 
 
-    return (
+    return ( 
         <div>
-            <div className="m-2 p-2 text-white bg-zinc-400">
+            <div className="m-2 p-2 text-white">
                 <div className="m-2 p-2 border-2">
-                    {product.pname}
+                {product.pname}
                 </div>
                 <div className="m-2 p-2 border-2">
                     {product.pdesc}
@@ -44,34 +48,35 @@ const ReadComponent = ({ pno, moveModify, moveList }) => {
                 </div>
                 <div className="m-2 p-2 border-2">
                     <ul>
-                        {product.images.map((fname, idx) =>
-                            <li key={idx}>
-                                <img src={`http://localhost/${fname}`}></img>
-                            </li>
+                        {product.images.map((fname,idx) => 
+                        <li key={idx}>
+                            <img src={`http://localhost/${fname}`}></img>
+                        </li>
                         )}
                     </ul>
                 </div>
                 <div>
                     <button
-                        className="bg-neutral-700 border-2 m-2 p-2 text-white font-bold"
-                        onClick={() => moveModify(product.pno)}>
+                    className="bg-blue-300 border-2 m-2 p-2 text-white font-bold"
+                    onClick={()=> moveModify(product.pno)}>
                         Modify
                     </button>
                     <button
-                        className="bg-neutral-700 border-2 m-2 p-2 text-white font-bold"
-                        onClick={moveList}>
+                    className="bg-blue-300 border-2 m-2 p-2 text-white font-bold"
+                    onClick={moveList}>
                         List
                     </button>
                     <button
-                        className="bg-neutral-700 border-2 m-2 p-2 text-white font-bold"
-                        onClick={moveList}>
-                        List
+                    className="bg-blue-300 border-2 m-2 p-2 text-white font-bold"
+                    onClick = {() => {
+                        dispatch(addCartThunk({email,pno}))
+                    }}>
+                        addCart
                     </button>
-
                 </div>
             </div>
         </div>
-    );
+     );
 }
-
+ 
 export default ReadComponent;
