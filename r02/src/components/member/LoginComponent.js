@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { requestLogin } from "../../reducers/loginSlice";
+import { postLoginThunk, requestLogin } from "../../reducers/loginSlice";
+import { postLogin } from "../../api/memberAPI";
 
 
 const initState = {
@@ -10,9 +11,12 @@ const initState = {
 
 const LoginComponent = () => {
 
-    const [loginInfo, setLoginInfo] = useState({...initState})
+    const loginState = useSelector(state => state.login)
 
+    const [loginInfo, setLoginInfo] = useState({ ...initState })
+    
     const dispatch = useDispatch()
+
 
 
 
@@ -36,7 +40,7 @@ const LoginComponent = () => {
                     <div >
                         <button 
                         className="mt-5 border-slate-700 border-2 p-2 "
-                        onClick={() => dispatch(requestLogin(loginInfo))}>LOGIN</button>
+                        onClick={() => dispatch(postLoginThunk(loginInfo))}>LOGIN</button>
                     </div>
                 </div>
             </div>

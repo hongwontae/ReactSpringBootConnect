@@ -1,33 +1,25 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
+const LoginNav = () => {
 
-const LoginNavi = () => {
+   const { email, nickname } = useSelector(state => state.login)
 
-    const {email,signed} = useSelector(state => state.login)
+   console.log("LoginNav...........", email, nickname)
 
-    console.log("LoginNavi..........", email ,signed)
-
-    if(signed) {
-        return (
-            <div>
-                <div>
-                    {email}
-                </div>
-            </div>
-
-        )
-    }
+   if (email !== '') {
+      return(
+      <div className="font-serif">
+         <div>{email} - {nickname}</div>
+      </div>)
+   }
 
 
-    return ( 
-        <div>
-            <div className="border-2">
-                <Link to="/member/login">LOGIN</Link>
-            </div>
-
-        </div>
-     );
+   return (
+      <div>
+         <Link to="/member/login"> <div>LOGIN</div></Link>
+      </div>
+   );
 }
- 
-export default LoginNavi;
+
+export default LoginNav;
