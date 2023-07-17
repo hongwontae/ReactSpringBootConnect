@@ -1,11 +1,10 @@
 package org.zerock.j2.service;
 
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.transaction.Transactional;
 import org.zerock.j2.dto.MemberDTO;
 
 @Transactional
 public interface MemberService {
 
-    MemberDTO login(String emial, String pw);
-    
+    MemberDTO login(String email, String pw);
 }

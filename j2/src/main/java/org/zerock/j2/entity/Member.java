@@ -1,14 +1,8 @@
 package org.zerock.j2.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Getter
@@ -18,13 +12,13 @@ import lombok.ToString;
 @ToString
 public class Member {
 
+    // ID 역활
     @Id
-    private String emial;
+    private String email;
 
     private String pw;
 
-    private String nickName;
+    private String nickname;
 
     private boolean admin;
-
 }

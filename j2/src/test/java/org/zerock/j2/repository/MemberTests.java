@@ -1,11 +1,12 @@
 package org.zerock.j2.repository;
 
-import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.zerock.j2.entity.Member;
+
+import java.util.Optional;
 
 @SpringBootTest
 public class MemberTests {
@@ -14,21 +15,24 @@ public class MemberTests {
     MemberRepository memberRepository;
 
     @Test
-    public void testInsert(){
+    public  void testInsert(){
+
         Member member = Member.builder()
-        .emial("User1").pw("1234").nickName("Steven Jerrad")
-        .build();
+                .email("user00@aaa.com")
+                .pw("1111")
+                .nickname("USER00")
+                .build();
 
         memberRepository.save(member);
     }
-
     @Test
-    public void MemberTest(){
-        String emial = "User1";
+    public  void testRead(){
+        String email = "user00@aaa.com";
 
-        Optional<Member> result = memberRepository.findById(emial);
+        Optional<Member> result = memberRepository.findById(email);
+
         Member member = result.orElseThrow();
+
         System.out.println(member);
     }
-    
 }

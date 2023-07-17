@@ -1,15 +1,10 @@
 package org.zerock.j2.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.zerock.j2.dto.MemberDTO;
-import org.zerock.j2.service.MemberService;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.web.bind.annotation.*;
+import org.zerock.j2.dto.MemberDTO;
+import org.zerock.j2.service.MemberService;
 
 @RestController
 @CrossOrigin
@@ -23,12 +18,23 @@ public class MemberController {
     @PostMapping("login")
     public MemberDTO login(@RequestBody MemberDTO memberDTO){
 
-        log.info("memberDTO ", memberDTO);
+        log.info("Parameter: " + memberDTO);
 
-        MemberDTO result = memberService.login(memberDTO.getEmial(),memberDTO.getPw());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            
+            e.printStackTrace();
+        }
 
-        return result;
+        MemberDTO result = memberService.login(
+                memberDTO.getEmail(),
+                memberDTO.getPw()
+        );
+
+        log.info("Return: " + result);
+
+        return  result;
 
     }
-    
 }

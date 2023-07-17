@@ -16,16 +16,25 @@ runtimeException으로 잡은 이유는?
 
 
 pending, fulfilled, rejected
-비동기 작업
+비동기 작업에는 4가지 상태가 있다.
 
+createdAsink => 펜딩, 풀필, 리젝트 상태가 존재하게 한다.
 
+loginSlice 작업
 
+로그인 상태를 알아야 된다. => Action에서 들어온 값을 확인해야 한다.
+reducer는 순수한 함수이기에 return이 있어야 된다.
 
+action.payload => 로그인한 사용자 정보
 
+payload 안에 이메일, 닉네임, admin여부, pw 존재
 
+const [email, nickname, admin] = action.payload
+stat.email = email
+state.nickname = nickname
+state.admin = admin
 
-
-
+로딩은 성공했고 다시 false로 변경되었다.
 
 
 
