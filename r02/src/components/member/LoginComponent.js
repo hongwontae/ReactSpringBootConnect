@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { postLoginThunk, requestLogin } from "../../reducers/loginSlice";
-import { postLogin } from "../../api/memberAPI";
 
 
 const initState = {
-    email: 'karl08@gmail.com',
+    email: 'user00@aaa.com',
     pw: '1111'
 }
 
-const LoginComponent = () => {
+const LoginComponenet = () => {
 
     const loginState = useSelector(state => state.login)
 
@@ -17,37 +16,40 @@ const LoginComponent = () => {
     
     const dispatch = useDispatch()
 
+    
 
+    
 
-
-
-    return ( 
-        <div className="text-2xl">
-            <div className="h-[40vh] bg-slate-300 w-[40vh] my-20 mx-auto">
-                <div className="pt-[7vh] px-2 ">
-                    <div className="overflow-hidden ">
-                        <label className="float-left">email</label>
-                        <input type="text" name="email" value={loginInfo.email}
-                        className="p-1 float-right border-2 border-black text-center "
-                        onChange={() => {}}></input>
+    return (
+        <div className="m-3 p-3  flex justify-center">
+            {/* Modal로 처리해 줘야된다. */}
+            <div className="text-3xl bg-red-500">
+              {loginState.loading ? '로그인중':''}
+            </div>
+            <div>
+                <div className="m-2 p-2 border-4 border-orange-300/75">
+                    <div>
+                        <span>ID Login</span>
                     </div>
-                    <div className="overflow-hidden">
-                        <label className="float-left">pw</label>
-                        <input type="password" name="pw" value={loginInfo.pw}
-                        className="p-1 float-right border-2 border-black rounded text-center"
-                        onChange={() => {}}></input>
+                    <div className="m-2 p-2">
+                        
+                        <input className="bg-black" type="text" name="email" value={loginInfo.email} onChange={() => { }}></input>
                     </div>
-                    <div >
-                        <button 
-                        className="mt-5 border-slate-700 border-2 p-2 "
-                        onClick={() => dispatch(postLoginThunk(loginInfo))}>LOGIN</button>
+                    <div className="m-2 p-2">
+
+                        <input className="bg-black" type="password" name="pw" value={loginInfo.pw} onChange={() => { }}></input>
                     </div>
+                
+                <div>
+                    <button className="border-2 m-2  mb-10" onClick={() => dispatch(postLoginThunk(loginInfo))
+                   
+                    }>LOGIN</button>
                 </div>
+                </div>
+  
             </div>
         </div>
-
-
-     );
+    );
 }
- 
-export default LoginComponent;
+
+export default LoginComponenet;
