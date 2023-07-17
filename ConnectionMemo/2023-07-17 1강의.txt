@@ -1,0 +1,41 @@
+프로젝트를 만들 때 Admin Page => 본 적 없다.
+
+@JSONFormat
+@JsonIgnore => 패스워드는 json으로 빼주라.
+=> json 비밀번호 처리
+
+findByid로 아이디를 찾을 것이냐, queryMethod를 이용하여 아이디나 비밀번호를 찾을 것이냐?
+
+runtimeException으로 잡은 이유는?
+
+패스워드 틀린 값을 주면 500 에러가 발생한다.
+
+사용자 아이디, 비밀번호 오류는 200으로 잡아낸다.
+
+리덕스 thunk, redux saga
+
+
+pending, fulfilled, rejected
+비동기 작업
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
