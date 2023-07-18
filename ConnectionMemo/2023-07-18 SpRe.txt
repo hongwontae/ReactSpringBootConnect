@@ -60,6 +60,13 @@ Oauth => 제 3자 인증
 
 우리가 만든 서버는 api 서버이다. 화면x 서버 headless 서버라고 부른다.
 
+React Link로 처리했다. 
+
+카카오 동의 페이지
+
+Redirect url에서 실행된 결과가 화면에 띄어준다.
+api 서버가 화면을 가진다? => React가 가져가야 한다.
+redirct url를 그대로 React로 보낸다.
 
 
 

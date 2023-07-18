@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.web.bind.annotation.*;
 import org.zerock.j2.dto.MemberDTO;
 import org.zerock.j2.service.MemberService;
+import org.zerock.j2.service.SocialService;
 
 @RestController
 @CrossOrigin
@@ -18,12 +19,17 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("kakao")
-    public Map<String, String> getAuthCode(String code){
+    private final SocialService socialService;
 
+    @GetMapping("kakao")
+    public MemberDTO getAuthCode(String code){
+
+        log.info("--------------------------------------------------");
         log.info("code..", code);
 
-        return Map.of("result", "success");
+        String email = socialService.getKakaoEmail(code);
+
+        return null;
     }
 
     @PostMapping("login")
