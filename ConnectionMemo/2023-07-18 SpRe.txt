@@ -1,0 +1,76 @@
+카카오 로그인
+
+총 단계는 3가지 단계로 이루어진다.
+
+1. 카카오 코드에 접근할 수 있는 인가 코드가 있다.
+
+2. 엑세스 정보로 사용자의 정보를 가지고 온다.
+
+=> 이러한 방식은 다 적용된다. 페이스북, 구글 etc...
+
+203c06beb3e2aa04838be82880b0d93f => RestAPI키
+http://localhost:3000/member/kakao => Redirect URI
+https://kauth.kakao.com/oauth/token => 토큰 받기 post 방식 Access 코드
+
+Secutiry는 버튼이 자동으로 나왔는데, 이제는 우리가 임의로 버튼을 만들어야 한다.
+버튼은  api키, redirect URI가 필요하다.
+
+인가 코드 받기 https://kauth.kakao.com/oauth/authorize
+
+쿼리 파라미터 방식은 get방식이다.
+이 세가지를 쿼리 스트링으로 구성해줘야 한다.
+1. client_id	String	앱 REST API 키
+[내 애플리케이션] > [앱 키]에서 확인 가능
+
+2. redirect_uri	String	인가 코드를 전달받을 서비스 서버의 URI
+[내 애플리케이션] > [카카오 로그인] > [Redirect URI]에서 등록
+
+3. response_type	String	code로 고정 => 고정된 값
+
+브라우저는 시크릿모드로 하자.
+
+이 상태에서 로그인을 하면 리다이렉트로 설정한 경로로 간다.
+내가 지정한 local300, code값(인가코드)(휘발성 한 번 사용하면, 시간 지나면 사라진다.)
+로그인 할 때마다 인가코드가 달라진다.
+=> 이게 나와야 한다.
+
+=> 라우팅으로 리다이렉트 주소를 잡아줘야 한다.
+
+
+토큰을 가져올 때 Content Type을 설정해줘야 한다.
+
+
+
+const REST_KEY = "203c06beb3e2aa04838be82880b0d93f"
+const REDIRECT_URI  = "http://localhost:3000/member/kakao"
+
+const AUTH_TOKEN_URL ="https://kauth.kakao.com/oauth/token" 
+
+Oauth => 제 3자 인증
+
+과거의 방식은 모두 회원가입을 해야 한다.
+대부분의 서비스는 회원 가입 방식을 포기하지 못한다.
+
+동의 화면(api 서버에서 불가) => 
+인가 코드 (Redirct URL 내가 정하는 것이다. 컨트롤러가 인가 코드를 수집한다. 서버에서 인가코드를 받아와서
+서버쪽에서도 엑세스 토큰 호출 가능, 이 후 사용자 정보 추출, 이메일 나온다.) 
+=> 엑세스 코드
+=> 사용자 정보
+
+
+우리가 만든 서버는 api 서버이다. 화면x 서버 headless 서버라고 부른다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
