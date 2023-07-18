@@ -22,8 +22,8 @@ public class MemberController {
     @GetMapping("kakao")
     public MemberDTO getAuthCode(String code){
 
-        log.info("----------------------------------");
-        log.info(code);
+        log.info("--------code1234----------code123-----");
+        log.info(code); //auth code
 
         String email = socialService.getKakaoEmail(code);
 
