@@ -2,13 +2,12 @@ package org.zerock.j2.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
-import java.util.Map;
-
 import org.springframework.web.bind.annotation.*;
 import org.zerock.j2.dto.MemberDTO;
 import org.zerock.j2.service.MemberService;
 import org.zerock.j2.service.SocialService;
+
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -18,18 +17,20 @@ import org.zerock.j2.service.SocialService;
 public class MemberController {
 
     private final MemberService memberService;
-
     private final SocialService socialService;
 
     @GetMapping("kakao")
     public MemberDTO getAuthCode(String code){
 
-        log.info("--------------------------------------------------");
-        log.info("code..", code);
+        log.info("----------------------------------");
+        log.info(code);
 
         String email = socialService.getKakaoEmail(code);
 
-        return null;
+        MemberDTO memberDTO = memberService.getMemberWithEmail(email);
+
+
+        return memberDTO;
     }
 
     @PostMapping("login")
@@ -38,10 +39,9 @@ public class MemberController {
         log.info("Parameter: " + memberDTO);
 
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
-            
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         MemberDTO result = memberService.login(
@@ -54,4 +54,5 @@ public class MemberController {
         return  result;
 
     }
+
 }

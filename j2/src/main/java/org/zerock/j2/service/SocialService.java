@@ -1,10 +1,9 @@
 package org.zerock.j2.service;
 
-import org.springframework.transaction.annotation.Transactional;
+import jakarta.transaction.Transactional;
 
 @Transactional
 public interface SocialService {
-    
-    String getKakaoEmail(String authCode);
 
+    String getKakaoEmail(String authCode);
 }
