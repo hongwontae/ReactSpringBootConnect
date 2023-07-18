@@ -1,0 +1,8 @@
+React Router
+사용자가 요청한 url에 따라 해당 url에 맞는 페이지로 이동시키는 기술
+
+suspenese => 어떤 컴포넌트가 읽어야 하는 데이터가 아직 준비되지 않았다고 리액트에게 알려주는 매커니즘
+
+lazy => react 애플리케이션 쉽게 코드 분할 가능하게 만든다.
+
+configureStore
