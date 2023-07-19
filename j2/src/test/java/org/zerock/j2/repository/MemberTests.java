@@ -18,13 +18,14 @@ public class MemberTests {
     public  void testInsert(){
 
         Member member = Member.builder()
-                .email("krige@naver.com")
+                .email("dnjsxoghd@naver.com")
                 .pw("1111")
-                .nickname("정재현")
+                .nickname("홍원태")
                 .build();
 
         memberRepository.save(member);
     }
+
     @Test
     public  void testRead(){
         String email = "user00@aaa.com";

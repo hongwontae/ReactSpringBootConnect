@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.zerock.j2.dto.MemberDTO;
 import org.zerock.j2.service.MemberService;
 import org.zerock.j2.service.SocialService;
+import org.zerock.j2.util.JwtUtil;
 
 import java.util.Map;
 
@@ -18,6 +19,7 @@ public class MemberController {
 
     private final MemberService memberService;
     private final SocialService socialService;
+    private final JwtUtil jwtUtil;
 
     @GetMapping("kakao")
     public MemberDTO getAuthCode(String code){
@@ -48,6 +50,11 @@ public class MemberController {
                 memberDTO.getEmail(),
                 memberDTO.getPw()
         );
+
+        result.setAccessToken(jwtUtil.generate(Map.of("email", result.getEmail()), 10));
+
+        result.setRefreshToken(jwtUtil.generate(Map.of("email", result.getEmail()), 60*24));
+
 
         log.info("Return: " + result);
 
