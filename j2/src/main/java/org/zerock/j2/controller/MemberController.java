@@ -62,4 +62,20 @@ public class MemberController {
 
     }
 
+    @RequestMapping("refresh")
+    public Map<String, String> refresh (@RequestHeader("Authorization") String accessToken, String refreshToken) {
+
+        log.info("Refresh",refreshToken);
+        log.info("Access", accessToken);
+
+        // 엑세스 토큰 만료 확인
+        
+        // 리프레시 토큰 만료 확인
+        Map<String, Object> claims = jwtUtil.validateToken(refreshToken);
+        
+
+
+        return null;
+    }
+
 }

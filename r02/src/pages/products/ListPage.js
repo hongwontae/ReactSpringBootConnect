@@ -1,34 +1,30 @@
 import ListComponent from "../../components/products/ListComponent";
 import useQueryObj from "../../hooks/useQueryObj";
-import { createSearchParams } from "react-router-dom"
 
 const ListPage = () => {
 
-    const { queryObj, setSearch, moveRead, moveList } = useQueryObj()
+    const {queryObj,setSearch, moveList, moveRead} = useQueryObj()
 
     const movePage = (num) => {
-        console.log("num===", num)
+        console.log("NUM---------------------------- " + num)
+        // URL 변경시 useNavigate, setSearch 
         queryObj.page = num
         setSearch({ ...queryObj })
     }
 
 
+    return ( 
+        <div className="text-3xl ">
 
-    return (
-        <div className=" bg-slate-500">
-            <div>
-                <div className="text-2xl pb-2 text-center text-white">
-                    Products ListPage
-                </div>
 
-                <ListComponent
-                    queryObj={queryObj}
-                    movePage={movePage}
-                    moveRead={moveRead}>
-                </ListComponent>
-            </div>
+
+            <ListComponent 
+            queryObj={queryObj} 
+            movePage={movePage} 
+            moveRead={moveRead}
+            ></ListComponent>
         </div>
-    );
+     );
 }
-
+ 
 export default ListPage;

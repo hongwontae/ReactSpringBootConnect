@@ -1,5 +1,6 @@
 import { createSearchParams, useNavigate, useSearchParams } from "react-router-dom"
 
+
 const checkNull = (obj) => {
 
     const result = {}
@@ -8,7 +9,7 @@ const checkNull = (obj) => {
         const attrName = attr
         const attrValue = obj[attr]
 
-        if(attrValue && attrValue !== null){
+        if (attrValue && attrValue !== 'null') {
             result[attrName] = attrValue
         }
     }
@@ -16,44 +17,48 @@ const checkNull = (obj) => {
     return result
 }
 
+
 const useQueryObj = () => {
-    
+    // Query String 처리
     const [search, setSearch] = useSearchParams()
+
     const navigate = useNavigate()
-
+    
     console.log(search)
-
+    // page size 값은 없다면 초기값 설정
     const page = search.get("page") || 1
     const size = search.get("size") || 10
     const type = search.get("type")
     const keyword = search.get("keyword")
 
-    const queryObj = checkNull({page, size, type, keyword})
-
+    // object로  묶어주기
+    const queryObj = checkNull({ page, size, type, keyword })
+    
     const moveList = () => {
         const queryString = createSearchParams(queryObj).toString()
-        navigate(`../list?${queryString}`)
+        navigate(`../list/?${queryString}`)
     }
-    const moveRead = (bno) => {
 
-        console.log("moveRead", bno)
+    const moveRead = (bno)=>{
+
+        console.log("moveRead: " + bno)
 
         const queryString = createSearchParams(queryObj).toString()
-        console.log("queryString", queryString)
         
         navigate(`../read/${bno}?${queryString}`)
     }
+    const moveModify = (bno)=>{
 
-    const moveModify = (bno) => {
-
-        console.log("moveModify", bno)
+        console.log("moveModify: " + bno)
 
         const queryString = createSearchParams(queryObj).toString()
-        console.log("queryString", queryString)
         
-        navigate(`../Modify/${bno}?${queryString}`)
+        navigate(`../modify/${bno}?${queryString}`)
     }
 
-    return {queryObj, setSearch, moveRead, moveList, moveModify}
+
+
+    return {queryObj,setSearch, moveList, moveRead, moveModify}
 }
+
 export default useQueryObj
