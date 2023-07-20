@@ -63,19 +63,22 @@ public class MemberController {
     }
 
     @RequestMapping("refresh")
-    public Map<String, String> refresh (@RequestHeader("Authorization") String accessToken, String refreshToken) {
+    public Map<String, String> refresh( @RequestHeader("Authorization") String accessToken,
+                              String refreshToken ){
 
-        log.info("Refresh",refreshToken);
-        log.info("Access", accessToken);
+        log.info("Refresh.... access: " + accessToken);
+        log.info("Refresh... refresh: " + refreshToken);
 
-        // 엑세스 토큰 만료 확인
-        
-        // 리프레시 토큰 만료 확인
+        //accessToken은 만료되었는지 확인
+
+        //refreshToken은 만료되지 않았는지 확인
+
         Map<String, Object> claims = jwtUtil.validateToken(refreshToken);
-        
 
 
-        return null;
+        return Map.of("accessToken" , jwtUtil.generate(claims, 1),
+                "refreshToken", jwtUtil.generate(claims, 60*24));
+
     }
 
 }

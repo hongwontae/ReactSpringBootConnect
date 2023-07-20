@@ -1,78 +1,96 @@
 import axios from "axios";
-import { getCookies } from "./cookieUtil";
+import { getCookies, setCookie } from "./cookieUtil";
+
 
 const jwtAxios = axios.create()
 
 const beforeReq = (config) => {
-    console.log("beforeRequest.....................")
 
-    const {accessToken} =  getCookies("login")
+    console.log("beforeRequest.................")
 
-
-    console.log(config)
+    const {accessToken}  = getCookies("login")
 
     if(!accessToken){
-        throw new Error("No access Token")
+        throw new Error("NO ACCESS TOKEN")
     }
-
-
-    config.headers.Authorization = `Bearer ${accessToken}`
     
+    config.headers.Authorization = `Bearer ${accessToken}`
 
     return config
 }
-
 const requestFail = (err) => {
 
-    console.log("Request Fail....")
+    console.log("request fail..............")
 
     return Promise.reject(err)
 }
 
-const beforeRes = (res) => {
+const beforeRes = async(res) => {
 
-    console.log("response....")
+    console.log("2xx Response.............")
 
-    if(res.data.error === 'Expires'){
+    if(res.data.error === 'Expired'){
 
         console.log("Access Token has expired")
 
-        refreshJWT()
+        const newAccessToken = await refreshJWT()
+
+
+        const originalRequest = res.config
+
+        originalRequest.headers.Authorization = `Bearer ${newAccessToken}`
+
+        return await axios(originalRequest)
 
     }
 
-    return res;
+    return res
+
 }
 
-const refreshJWT = async() => {
+const refreshJWT = async () => {
 
+    const cookieValue = getCookies("login")
 
-    const {accessToken, refreshToken} = getCookies();
-
+    const {accessToken, refreshToken} = cookieValue
 
     const header = {
         headers: {
-            "Authorization": `Bearer ${accessToken}`,
-            "Content-Type": "application/x-www-form-urlencoded;charset=utf-8",
+            "Authorization": `Bearer ${accessToken}`
         }
     }
 
-    const res = await axios.get(`http://localhost:8000/api/member/refresh?`)
+    const res = await axios.get(`http://localhost:8080/api/member/refresh?refreshToken=${refreshToken}`, header)
 
+    const newAccess = res.data.accessToken
+    const newRefresh = res.data.refreshToken
+
+    console.log("--------------------------------")
+    console.log("new access :" + newAccess )
+    console.log("new refresh :" + newRefresh)
+
+
+    cookieValue.accessToken = newAccess
+    cookieValue.refreshToken = newRefresh
+    console.log("--------------------------------")
+    console.log(cookieValue)
+
+    setCookie("login", JSON.stringify(cookieValue), 1)
+
+    return newAccess
 
 }
 
 
 
+const responseFail  = (err) => {
+    console.log("response fail...........")
 
-const responseFail = (err) => {
-    console.log("ResponseFail....")
 
     return Promise.reject(err)
 }
 
 jwtAxios.interceptors.request.use(beforeReq, requestFail)
-
 jwtAxios.interceptors.response.use(beforeRes, responseFail)
 
-export default jwtAxios;
+export default jwtAxios
