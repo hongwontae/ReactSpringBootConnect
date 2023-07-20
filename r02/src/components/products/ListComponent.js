@@ -30,7 +30,7 @@ const ListComponent = ({queryObj,movePage, moveRead}) => {
         getList(queryObj).then(data =>{
             console.log(data)
             setListData(data)
-        })
+        }) // 캐치하고 Exception 필요
 
     },[queryObj])
 
