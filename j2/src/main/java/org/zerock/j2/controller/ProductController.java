@@ -34,6 +34,7 @@ public class ProductController {
 
         return service.list(pageRequestDTO);
     }
+    
     @GetMapping("{pno}")
     public  ProductDTO getOne(@PathVariable("pno") Long pno){
 
