@@ -24,25 +24,39 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
 
     public ProductSearchImpl() {
         super(Product.class);
+        // 부모 클래스의 생성자를 가져온다.
     }
 
     @Override
     public PageResponseDTO<ProductListDTO> list(PageRequestDTO pageRequestDTO) {
 
         QProduct product = QProduct.product;
+        // q도메인의  product값을 기존의 product Entity에 넣는다.
         QProductImage productImage = QProductImage.productImage;
+        // q도메인의  productImage값을 기존의 productImage Entity에 넣는다.
+
 
         JPQLQuery<Product> query = from(product);
+        // from(product) => select * from product
+
         query.leftJoin(product.images, productImage);
+        // 일의 관계의 images와 productImage를 조인한다.
 
         query.where(productImage.ord.eq(0));
+        // 조건은 => productImage.ord가 0인 것만 찾아라.
+
+        // 저 위 세개를 조합하면 
 
         int pageNum = pageRequestDTO.getPage() <= 0 ? 0 : pageRequestDTO.getPage() - 1;
+        // 들어오는 pageNum이 0이면 0을 반환하고 그렇지 않다면 들어오는 페이지num에서 -1를 한것을
+        // 넣어준다.
+
 
         Pageable pageable = PageRequest.of(pageNum, pageRequestDTO.getSize(),
                 Sort.by("pno").descending());
 
         this.getQuerydsl().applyPagination(pageable, query);
+        // querydsl로 pageable 처리하는 방식
 
         JPQLQuery<ProductListDTO> dtoQuery = query.select(
                 Projections.bean(ProductListDTO.class,
@@ -50,9 +64,12 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
                         product.price,
                         productImage.fname));
         List<ProductListDTO> dtoList = dtoQuery.fetch();
+        // 리스트 형식으로 쿼리를 실행한 결과를 반환한다.
         long totalCount = dtoQuery.fetchCount();
+        // 위의 쿼리 결과의 개수를 반환한다.
 
         return new PageResponseDTO<>(dtoList, totalCount, pageRequestDTO);
+    
     }
 
     @Override

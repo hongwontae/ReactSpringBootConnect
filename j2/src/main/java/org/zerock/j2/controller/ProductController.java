@@ -28,11 +28,14 @@ public class ProductController {
 
     @GetMapping("list")
     public PageResponseDTO<ProductListDTO> list(PageRequestDTO pageRequestDTO) {
+        // 처음에 react코드에서 기본적인 pageRequestDTO를 가져온다.
+        // 1, 10, null, null 등장
 
         log.info("-------------------------------");
         log.info((pageRequestDTO));
 
         return service.list(pageRequestDTO);
+        // 그러면 1,10, null, null pageRequestDTO를 list의 service에 반환한다.
     }
     
     @GetMapping("{pno}")

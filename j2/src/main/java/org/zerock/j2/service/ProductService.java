@@ -11,6 +11,7 @@ import jakarta.transaction.Transactional;
 public interface ProductService {
     
     PageResponseDTO<ProductListDTO> list (PageRequestDTO requestDTO);
+    // controller로 부터 매개변수를 받아온다.
 
     Long register(ProductDTO productDTO);
 

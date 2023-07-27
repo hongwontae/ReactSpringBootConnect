@@ -24,11 +24,14 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
 
     private final FileUploader fileUploader;
+
+
     @Override
     public PageResponseDTO<ProductListDTO> list(PageRequestDTO requestDTO) {
-        
+        // service 인터페이스에서 가져온 것을 구현한다.
 
         return productRepository.listWithReview(requestDTO);
+        // 가져온 requestDTO 매개변수를 listwithreview에 전달한다.
     }
 
     @Override
