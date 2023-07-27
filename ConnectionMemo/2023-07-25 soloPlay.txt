@@ -1,0 +1,114 @@
+Application-Properties
+
+spring.jpa.show-sql=true => 실행되는 query문 console에 출력한다.
+
+spring.jpa.hibernate.ddl-auto= .... => 서버 실행 시 entity의 내용으로 테이블 생성 여부 확인
+create : 서버 실행 시 테이블 생성 (기존 내용 삭제된다.)
+update : 서버 실행 시 변경사항 있으면 실행, 테이블 없으면 자동으로 생성한다.
+none : 실행안한다.
+
+spring.jpa.properties.hibernate.format_sql=true
+=> console에 출력되는 query문 가독성을 위한 포맷여부이다.
+
+hibernate.use_sql_comments : true
+=> 보다 쉬운 디버깅을 위해 sql 내부에 /* */주석을 추가한다.
+
+hibernate.highlight_sql : true
+=> sql출력을 ANSI escape codes를 사용하여 색을 부여한다.
+
+
+Resource and 타임리프 리플레쉬
+=> static 폴더에 위치하는 css,js 등의 파일들과 html 파일이 수정된 상태에서 새로고침이 일어났을 때
+리로드를 처리해주는 설정
+
+회사가 바뀌면서 javax에서 jakarta로 change되었다.
+
+@NoARgsConstructor (access = AccessLevel.PROTECTED)
+기본 생성자 생성, 속성 값은 동일한 패키키 내의 클래스에서만 객체를 생성할 수 있게 해준다.
+
+@Entity
+=> 해당 클래스가 테이블과 매핑되는 JPA의 엔티티 클래스임을 의미한다.
+테이블명 임의 지정하려면 @Table(name="nn_nn")
+
+@ID
+=> pk임을 알림
+
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+auto_increment
+
+일반적인 레파지토리
+extends jpaRepository <Board, Long>
+=> board crud할 수 있는 기능 생성하려고 이렇게 한다.
+
+.save() => 생성된 객체를 db에 저장한다.
+.findbyid() => pk값으로 엔티티를 조회한다. 데이터베이스를 조회한다.
+
+db like문
+where 조건 like %를 사용한다.
+
+jpql은 엔티티 객체를 대상으로 쿼리를 질의한다.
+
+querydsl => q클래스(도메인)
+엔티티 객체를 보고 q클래스를 만든다.
+
+
+manytoone, onetomany, onetoone, manytomany
+연관관계가 있다면 연관관계를 파악하여 어노테이션을 주어야 한다.
+연관관계 매핑이란 객체의 참조와 테이블의 외래 키를 매핑하는 것을 의미한다.
+JPA에서는 연관 관계에 있는 상대 테이블의 PK를 멤버 변수로 갖지 않고, 엔티티 객체 자체를 통째로 참조
+
+1. 방향
+단방향 관계 : 두 엔티티가 관계를 맺을 때, 한 쪽의 엔티티만 참조하고 있는 것을 의미
+양방향 관계 : 두 엔티티가 관계를 맺을 때, 양 쪽이 서로 참조하고 있는 것을 의미
+
+2. 다중성 
+관계에 있는 두 엔티티는 다음 중 하나의 관계를 갖는다.
+ManyToOne : 다대일 ( N : 1 )
+OneToMany : 일대다 ( 1 : N )
+OneToOne : 일대일 ( 1 : 1 )
+ManyToMany : 다대다 ( N : N )
+
+예를들어 하나의 Team은 여러 Member를 구성원으로 갖고 있으므로 Team 입장에서는 Member와 일대다 관계이며, Member의 입장에서는 하나의 Team에 속하므로 다대일 관계입니다. 즉, 어떤 엔티티를 중심으로 상대 엔티티를 바라보느냐에 따라 다중성이 다르게 됩니다.
+
+3. 연관관계의 주인 ( Owner )
+
+객체를 양방향 연관관계로 만들면 연관관계의 주인을 정해야 합니다.
+연관관계를 갖는 두 테이블에서 외래키를 갖게되는 테이블이 연관관계의 주인이 됩니다.연관관계의 주인만이 외래 키를 관리(등록, 수정, 삭제) 할 수 있고, 주인이 아닌 엔티티는 읽기만 할 수 있습니다.
+
+@JoinColumn(name ="...")
+외래 키 매핑할 때 사용한다. name 속성은 매핑할 외래 키 이름을 지정합니다.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

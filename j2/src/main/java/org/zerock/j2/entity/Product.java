@@ -32,6 +32,8 @@ public class Product {
     private boolean delFlag;
 
     @ElementCollection(fetch = FetchType.LAZY)
+    // @oneTomany 따라간다. 컬렉션의 값을 저장한다. 여기에서만 접근하여 image를 넣을 수 있다.
+    // 값들은 컬렉션 형식으로 의존적인 관계로 넣을 거라서 이렇게 설계한다.
     @Builder.Default
     private List<ProductImage> images = new ArrayList<>();
 
@@ -42,7 +44,7 @@ public class Product {
                 .ord(images.size()).build();
 
         images.add(pImage);
-    }
+    } 
 
     // 이미지 파일들을 싹 비워주는 method
     public void clearImages() {

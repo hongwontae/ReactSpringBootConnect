@@ -1,0 +1,113 @@
+로그인이라는 것은 애플리케이션에서의 인증이다.
+
+accessToken/ RefreshToken
+
+rest 방식으로 서비스를 하고 있고 JSON 데이터를 보낸다.
+
+로그인 => 아이디어와 패스워드를 준다. => 서버에서 확인 후 맞다 => acessToken과 RefreshToken을 준다.
+(로그인한 정보는 어플리케이션 내에서 사용한다)
+탈취되면 accessToken(문자열)만 확인하는 서버는 보안에 취약할 수 있다.
+
+그러면 어떻게 보안처리?
+엑세스 토큰의 시간을 1시간으로 주면 된다.
+완벽한 보안은 아니다. 1시간 내의 탈취는 방도가 없긴 하다.
+
+RefreshToken => 다음에 올 때 티켓한장 더 줄게란 개념이다.
+시간이 만료되었을 떄 리프레쉬 토큰을 줘서 새로운 accessToken을 준다.
+accessToken은 노출되는 빈도가 높다. RefreshToken은 노출되는 빈도가 낮다.
+
+이런 것을 토큰 기반 인증이라고 한다.
+
+protected Acess => 조심해야 하는 컨텐츠
+
+Oauth는 토큰 인증 방식
+jwt =>  암호화가 된 문자열 포맷팅 정보일 뿐이다. 토큰의 문자열이 jwt인 것이다. 
+
+
+로그인과 jwt는 다르다,
+로그인은 에플리케이션 내부에서 사용하는 것이다. 어플리케이션 내부에서 접근 권한을 주는 것이다.
+jwt는 api 서버내에서 컨텐츠 보호 목적이다.
+
+날씨 서버가 있다.
+날씨 서버에서 데이터를 가져와야 한다. 이 때 로그인해서 가져오는가? 아니다. 그냥 가져올 수 있다.
+로그인 필요가 없다. 
+
+쿠키를 보관하기 위해 cookie나 LocalStorage를 사용한다.
+
+RestFul => rest방식으로 서버를 구현한 것을 의미한다.
+무상태이다. 사용자의 로그인 정보를 유지하지 않는다. 오직 accessToken을 기반으로 처리한다.
+SpringSecurity는 상태 유지다. 같이 사용하면 안된다.
+
+우리가 생각해야 할 것은
+1. 토큰 발행 시기 => 로그인 할 떄
+2. 저장 시기 => 로그인 할 떄
+3. 호출 => 헤더 추가해서 엑세스 토큰을 같이 전달한다.
+4. 어떻게 검증할 것인가
+5. 만료된 토큰의 예외 메시지 처리
+
+검증하는 방법은 SC,Intercepter,filter
+맞지 않거나 만료된 토큰의 예외처리가 필요하다.
+axios를 쓰는 이유 => 만료되었을 떄 자동으로 Refresh을 해주기 위해 =>  slience Refresh
+
+
+어플리케이션 secret_key가 있다. 
+
+jwt io에서는 파싱을 해준다.
+
+todo가 있고 게시판있고 product가 있다.
+todo는 외부에 공개하는 서비스이다.
+product를 protectedService이다.
+
+사용자가 언제 발행했는지, 
+
+
+로그인을 하면 엑세스, 리프레시 토큰이 쿠키에 존재한다.
+쿠키는 전역상태로 유지중이다.
+
+애플리케이션 내의 접근 제한과 서버의 접근제한은 다른 영역이다.
+인터셉터를 이용해 accessToken을 확인한다.
+우리가 리액트에서 axios 보내줄 떄 헤더 메시지를 서버에서도 똑같이 보내줘야 된다.
+
+자바는 기본적으로 삼단구현을 했다.
+인터셉터-추상클래스-구현클래스
+default가 있어서 추상메서드 필요없다. 그래서 deprecate
+
+로그인하는 것은 jwt를 검사하지 않는다.
+
+preeFlight => 서버에 한 번 보내보는 api 요청
+이 요청은 당연히 accessToken 없다. 그러니까 intercepter에서 가로채면 안된다.
+
+예외처리를 해야 한다.
+이제는 servlet 예외 처리로 보내줘야 한다.
+
+만료가 되었으니까 정상적인 사용자라면 refreshToken을 가지고 온다. => 이 작업을 해야 한다.
+
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6InVzZXIwMEBhYWEuY29tIiwiaWF0IjoxNjg5NzQ0NDA0LCJleHAiOjE2ODk3NDUwMDR9.KYWmsmbG40PEqMQcQkimGxP8WWJq5miE2QVAFdLjgJc
+
+
+예외 클래스를 만들고.
+예외처리 중......
+예외 임의적으로 발생해서 테스트 만들기
+
+우리가 한 것은 jwtUtil, jwtIntercepter, test
+
+GSON.toJson => json 문자열이 등장한다.
+
+trim => 성능을 많이 잡아먹는다.
+isEmpty를 대신 많이 사용한다.
+throw new customExeption "null token"
+
+refresh를 가져올 방법, 가져와서 accessToken을 줄 방법
+
+
+
+
+
+
+
+
+
+
+
+
+

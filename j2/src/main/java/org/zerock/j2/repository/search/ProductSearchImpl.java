@@ -38,14 +38,11 @@ public class ProductSearchImpl extends QuerydslRepositorySupport implements Prod
 
         JPQLQuery<Product> query = from(product);
         // from(product) => select * from product
-
         query.leftJoin(product.images, productImage);
         // 일의 관계의 images와 productImage를 조인한다.
-
         query.where(productImage.ord.eq(0));
         // 조건은 => productImage.ord가 0인 것만 찾아라.
 
-        // 저 위 세개를 조합하면 
 
         int pageNum = pageRequestDTO.getPage() <= 0 ? 0 : pageRequestDTO.getPage() - 1;
         // 들어오는 pageNum이 0이면 0을 반환하고 그렇지 않다면 들어오는 페이지num에서 -1를 한것을

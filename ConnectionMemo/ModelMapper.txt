@@ -1,0 +1,22 @@
+ModelMapper
+=> 객체의 필드 값을 다른 객체의 필드 값으로 자동으로 맵핑
+
+DTO form에서 입력한 데이터를 DB에 저장하는 경우 DTO -> Entity 변환 과정이 필요하며, 
+DB에서 데이터를 조회하여 form 형태로 보여주는 경우 Entity -> DTO 변환 과정이 필요
+
+기본적으로는 mapper 객체를 생성하고
+ modelmapper.map(넣을 대상(source) , 넣어줘야하는 대상.class(destinationType))
+
+modelmapper는 ai마냥 메서드가 호출되면 source와 destination 타입을 분석하여 매칭 전략 및 기타 설정값에 따라 일치하는 속성을 결정한다.
+만약 객체타입이나 속성이 다른 경우에도 매칭 전략에 따라 매핑 과정을 수행한다.
+
+토큰이 일치해야 한다???
+=> Camel 표기법 : billingCity -> Billing 과 City 두개의 토큰
+=> Underscore 표기법 : billing_city -> Billing 과 City 두개의 토큰
+
+우리는 loose를 사용한다
+=> 순서 상관없다, 마지막 destination 속성 이름에는 모든 토큰이 일치해야 한다, 마지막 source 속성 이름은 일치하는 토큰이 하나 이상 있어야 한다.
+
+findByid => 행을 반환한다.
+
+setFieldMatchingEnabled, setFieldAccessLevel : private 인 필드도 맵핑

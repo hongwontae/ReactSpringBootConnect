@@ -33,6 +33,7 @@ const ListComponent = ({queryObj,movePage, moveRead}) => {
         }) // 캐치하고 Exception 필요
 
     },[queryObj])
+    // 컴포넌트가 업데이트 될 때 이 함수가 실행된다.
 
   
     return (  

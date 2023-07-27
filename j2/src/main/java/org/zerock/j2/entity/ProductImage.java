@@ -20,6 +20,8 @@ public class ProductImage {
 
     private int ord;
 
+    // fk가 있다.
+
     
 
 }
