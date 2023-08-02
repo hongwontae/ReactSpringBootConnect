@@ -30,10 +30,13 @@ public class TodoController {
     private final TodoService todoService;
     // todoList REST 방식
     @GetMapping("list")
+    // list가 들어오면
     public PageResponseDTO<TodoDTO> list(){
-
+        // 파라미터는 없다. 리턴 타입은 PageResponseDTO
         return todoService.getList();
     }
+
+
     // 등록하는 기능
     @PostMapping("")
     public TodoDTO register(@RequestBody TodoDTO todoDTO){
@@ -49,6 +52,8 @@ public class TodoController {
 
         return todoService.getOne(tno);
     }
+
+
     // 1개의 게시글 삭제하는 기능
     // payload가 안가니까 pathvariable 사용
     @DeleteMapping("{tno}")
@@ -58,6 +63,8 @@ public class TodoController {
         
         return Map.of("result","success");
     }
+
+    
     // 1개의 게시글 수정하는 기능
     @PutMapping("{tno}")
     public Map<String, String>update(

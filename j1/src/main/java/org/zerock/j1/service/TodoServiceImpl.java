@@ -31,6 +31,7 @@ public class TodoServiceImpl implements TodoService {
     public PageResponseDTO<TodoDTO> getList() {
 
         Pageable pageable = PageRequest.of(0, 20, Sort.by("tno").descending() );
+        // 
 
         Page<Todo> result = todoRepository.findAll(pageable);
         // 실제로원하는것은 Entity를 DTO로 변환해주어야됨

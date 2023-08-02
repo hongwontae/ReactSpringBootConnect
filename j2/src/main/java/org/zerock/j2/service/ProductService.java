@@ -14,6 +14,7 @@ public interface ProductService {
     // controller로 부터 매개변수를 받아온다.
 
     Long register(ProductDTO productDTO);
+    // controller로부터 productDTO가 들어온다.
 
     ProductDTO readOne(Long pno);
     void remove(Long pno);

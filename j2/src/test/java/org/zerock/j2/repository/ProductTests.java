@@ -19,25 +19,24 @@ public class ProductTests {
     @Autowired
     ProductRepository repo;
 
-    // Insert Test
-    // @Test
-    // public void testInsert(){
-    //     for(int i =0; i < 200; i++){
-    //     Product product = Product.builder()
-    //     .pname("Test" +i)
-    //     .pdesc("Test" + i)
-    //     .writer("user" + i)
-    //     .price(4000)
-    //     .build();
+    @Test
+    public void testInsert(){
+        for(int i =0; i < 200; i++){
+        Product product = Product.builder()
+        .pname("Test" +i)
+        .pdesc("Test" + i)
+        .writer("user" + i)
+        .price(4000)
+        .build();
 
-    //     product.addImage(UUID.randomUUID().toString()+ "_aaa.jpg");
-    //     product.addImage(UUID.randomUUID().toString()+"_bbb.jpg");
-    //     product.addImage(UUID.randomUUID().toString()+"_ccc.jpg");
+        product.addImage(UUID.randomUUID().toString()+ "_aaa.jpg");
+        product.addImage(UUID.randomUUID().toString()+"_bbb.jpg");
+        product.addImage(UUID.randomUUID().toString()+"_ccc.jpg");
 
-    //     repo.save(product);
-    //     }//end for
+        repo.save(product);
+        }//end for
 
-    // }
+    }
 
     @Test
     @Transactional // 안걸리면 lazy exception이 걸린다.

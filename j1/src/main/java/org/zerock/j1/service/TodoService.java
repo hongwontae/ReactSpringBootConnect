@@ -7,7 +7,7 @@ import org.zerock.j1.dto.TodoDTO;
 
 @Transactional
 public interface TodoService {
-    //Read
+    //Read Controller로부터 들어온다.
     PageResponseDTO<TodoDTO> getList();
     // Create
     TodoDTO register(TodoDTO dto);
